@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/autoimmune_disease"
+        android:id="@+id/covidTab"
+        android:title="@string/text_skin_diseases"/>
+
+    <item
+        android:icon="@drawable/day"
+        android:id="@+id/weatherTab"
+        android:title="@string/text_other_diseases"/>
+
+</menu>

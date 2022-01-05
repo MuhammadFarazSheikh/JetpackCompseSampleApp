@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="mostCommon"
+            type="com.lovetocode.diseasesymptoms.adapters.CovidDataAdapter" />
+
+        <variable
+            name="lessCommon"
+            type="com.lovetocode.diseasesymptoms.adapters.CovidDataAdapter" />
+
+        <variable
+            name="serious"
+            type="com.lovetocode.diseasesymptoms.adapters.CovidDataAdapter" />
+
+        <variable
+            name="covidPreventions"
+            type="com.lovetocode.diseasesymptoms.adapters.CovidDataAdapter" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:paddingBottom="5dp"
+        android:layout_height="match_parent"
+        tools:context=".fragments.FragmentCovid">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCovidDes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/covid_description"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:fontFamily="@font/montserrat_semibold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewMostCommonSymptoms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/text_most_common_symptoms"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:fontFamily="@font/montserrat_semibold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewCovidDes" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMostCommonSymptoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adapter="@{mostCommon}"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/textViewMostCommonSymptoms" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewLessCommonSymptoms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/text_less_common_symptoms"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:fontFamily="@font/montserrat_semibold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvMostCommonSymptoms" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLessCommonSymptoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adapter="@{lessCommon}"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/textViewLessCommonSymptoms" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewSeriousSymptoms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/text_serious_symptoms"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:fontFamily="@font/montserrat_semibold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvLessCommonSymptoms" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSeriousSymptoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adapter="@{serious}"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/textViewSeriousSymptoms" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCovidPreventions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/text_covid_preventions"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:fontFamily="@font/montserrat_semibold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvSeriousSymptoms" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPreventions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adapter="@{covidPreventions}"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/textViewCovidPreventions" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:id="@+id/btnCovidUpdates"
+                    android:layout_marginTop="20dp"
+                    android:textAllCaps="false"
+                    android:paddingHorizontal="40dp"
+                    android:background="@drawable/drawable_button_background"
+                    android:text="@string/text_covid_updates"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rvPreventions"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

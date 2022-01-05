@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/covidTab">
+
+    <fragment
+        android:id="@+id/covidTab"
+        android:name="com.lovetocode.diseasesymptoms.fragments.FragmentCovid"
+        android:label="@string/text_skin_diseases"
+        tools:layout="@layout/fragment_covid">
+
+        <action
+            android:id="@+id/covidTabAction"
+            app:destination="@id/countoriesListFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/countoriesListFragment"
+        android:name="com.lovetocode.diseasesymptoms.fragments.FragmentCountoriesList"
+        tools:layout="@layout/fragment_countories_list">
+
+        <action
+            android:id="@+id/countoriesTabAction"
+            app:destination="@id/covidUpdatesFragment">
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/covidUpdatesFragment"
+        android:name="com.lovetocode.diseasesymptoms.fragments.FragmentCovidUpdates"
+        tools:layout="@layout/fragment_covid_updates">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/weatherTab"
+        android:name="com.lovetocode.diseasesymptoms.fragments.FragmentWeather"
+        android:label="@string/text_other_diseases"
+        tools:layout="@layout/fragment_weather" />
+
+</navigation>

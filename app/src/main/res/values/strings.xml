@@ -1,0 +1,252 @@
+<resources>
+    <string name="app_name">DiseaseSymptoms</string>
+    <string name="text_skin_diseases">Covid</string>
+    <string name="text_other_diseases">Weather</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="covid_description">Coronavirus disease (COVID) is an infectious disease caused by the SARS-CoV-2 virus.
+ Most people who fall sick with COVID-19 will experience mild to moderate symptoms and recover without special treatment.
+        However, some will become seriously ill and require medical attention.</string>
+    <string name="text_most_common_symptoms">Most common symptoms:</string>
+    <string name="text_less_common_symptoms">Less common symptoms:</string>
+    <string name="text_serious_symptoms">Serious symptoms:</string>
+    <string name="text_covid_preventions">Covid preventions:</string>
+    <string name="text_covid_updates">Click to see covid updates</string>
+    <string name="hint_search">Search...</string>
+    <string name="text_country">Country:</string>
+    <string name="text_code">Code:</string>
+    <string name="text_confirmed">Confirmed:</string>
+    <string name="text_recovered">Recovered:</string>
+    <string name="text_critical">Critical:</string>
+    <string name="text_deaths">Deaths:</string>
+    <string name="text_latitude">Latitude:</string>
+    <string name="text_longitude">Longitude:</string>
+    <string name="text_last_change">Last change:</string>
+    <string name="text_last_update">Last update:</string>
+
+    <string-array name="most_common_symtoms">
+        <item>Fever</item>
+        <item>Cough</item>
+        <item>Tiredness</item>
+        <item>Loss of taste or smell</item>
+    </string-array>
+
+    <string-array name="less_common_symtoms">
+        <item>Sore throat</item>
+        <item>Headache</item>
+        <item>Aches and pains</item>
+        <item>Diarrhoea</item>
+        <item>A rash on skin, or discolouration of fingers or toes</item>
+        <item>Red or irritated eyes</item>
+    </string-array>
+
+    <string-array name="serious_symptoms">
+        <item>Difficulty breathing or shortness of breath</item>
+        <item>Loss of speech or mobility, or confusion</item>
+        <item>Chest pain</item>
+    </string-array>
+
+    <string-array name="covid_preventions">
+        <item>Maintain a safe distance from others (at least 1 metre), even if they don’t appear to be sick.</item>
+        <item>Wear a mask in public, especially indoors or when physical distancing is not possible.</item>
+        <item>Choose open, well-ventilated spaces over closed ones. Open a window if indoors.</item>
+        <item>Clean your hands often. Use soap and water, or an alcohol-based hand rub.</item>
+        <item>Get vaccinated when it’s your turn. Follow local guidance about vaccination.</item>
+        <item>Cover your nose and mouth with your bent elbow or a tissue when you cough or sneeze.</item>
+        Stay home if you feel unwell.
+    </string-array>
+
+    <string-array name="countories_list">
+        <item>China</item>
+        <item>India</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>Pakistan</item>
+        <item>Brazil</item>
+        <item>Nigeria</item>
+        <item>Bangladesh</item>
+        <item>Russia</item>
+        <item>Mexico</item>
+        <item>Japan</item>
+        <item>Ethiopia</item>
+        <item>Philippines</item>
+        <item>Egypt</item>
+        <item>Vietnam</item>
+        <item>DR Congo</item>
+        <item>Turkey</item>
+        <item>Iran</item>
+        <item>Germany</item>
+        <item>Thailand</item>
+        <item>United Kingdom</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Tanzania</item>
+        <item>South Africa</item>
+        <item>Myanmar</item>
+        <item>Kenya</item>
+        <item>South Korea</item>
+        <item>Colombia</item>
+        <item>Spain</item>
+        <item>Uganda</item>
+        <item>Argentina</item>
+        <item>Algeria</item>
+        <item>Sudan</item>
+        <item>Ukrain</item>
+        <item>Iraq</item>
+        <item>Afghanistan</item>
+        <item>Poland</item>
+        <item>Canada</item>
+        <item>Morocco</item>
+        <item>Saudi Arabia</item>
+        <item>Uzbekistan</item>
+        <item>Peru</item>
+        <item>Angola</item>
+        <item>Malaysia</item>
+        <item>Mozambique</item>
+        <item>Ghana</item>
+        <item>Yemen</item>
+        <item>Nepal</item>
+        <item>Venezuela</item>
+        <item>Madagascar</item>
+        <item>Cameroon</item>
+        <item>North Korea</item>
+        <item>Austrailia</item>
+        <item>Niger</item>
+        <item>Sri Lanka</item>
+        <item>Burkina Faso</item>
+        <item>Mali</item>
+        <item>Romania</item>
+        <item>Malawi</item>
+        <item>Chile</item>
+        <item>Kazakhstan</item>
+        <item>Zambia</item>
+        <item>Guatemala</item>
+        <item>Ecuador</item>
+        <item>Syria</item>
+        <item>Netherlands</item>
+        <item>Senegal</item>
+        <item>Cambodia</item>
+        <item>Chad</item>
+        <item>Somalia</item>
+        <item>Zimbabwe</item>
+        <item>Guinea</item>
+        <item>Rwanda</item>
+        <item>Benin</item>
+        <item>Burundi</item>
+        <item>Tunisia</item>
+        <item>Bolivia</item>
+        <item>Belgium</item>
+        <item>Haiti</item>
+        <item>Cuba</item>
+        <item>South Sudan</item>
+        <item>Dominican Republic</item>
+        <item>Czech Republic (Czechia)</item>
+        <item>Greece</item>
+        <item>Jordan</item>
+        <item>Portugal</item>
+        <item>Azerbaijan</item>
+        <item>Sweden</item>
+        <item>Honduras</item>
+        <item>United Arab Emirates</item>
+        <item>Hungary</item>
+        <item>Tajikistan</item>
+        <item>Belarus</item>
+        <item>Austria</item>
+        <item>Papua New Guinea</item>
+        <item>Serbia</item>
+        <item>Israel</item>
+        <item>Switzerland</item>
+        <item>Togo</item>
+        <item>Sierra Leone</item>
+        <item>Laos</item>
+        <item>Paraguay</item>
+        <item>Bulgaria</item>
+        <item>Libya</item>
+        <item>Lebanon</item>
+        <item>Nicaragua</item>
+        <item>Kyrgyzstan</item>
+        <item>El Salvador</item>
+        <item>Turkmenistan</item>
+        <item>Singapore</item>
+        <item>Denmark</item>
+        <item>Finland</item>
+        <item>Congo</item>
+        <item>Slovakia</item>
+        <item>Norway</item>
+        <item>Oman</item>
+        <item>State of Palestine</item>
+        <item>Costa Rica</item>
+        <item>Costa Rica</item>
+        <item>Liberia</item>
+        <item>Ireland</item>
+        <item>Central African Republic</item>
+        <item>New Zealand</item>
+        <item>Mauritania</item>
+        <item>Panama</item>
+        <item>Kuwait</item>
+        <item>Croatia</item>
+        <item>Moldova</item>
+        <item>Georgia</item>
+        <item>Eritrea</item>
+        <item>Uruguay</item>
+        <item>Bosnia and Herzegovina</item>
+        <item>Mongolia</item>
+        <item>Armenia</item>
+        <item>Jamaica</item>
+        <item>Qatar</item>
+        <item>Albania</item>
+        <item>Lithuania</item>
+        <item>Namibia</item>
+        <item>Gambia</item>
+        <item>Botswana</item>
+        <item>Gabon</item>
+        <item>Lesotho</item>
+        <item>North Macedonia</item>
+        <item>Slovenia</item>
+        <item>Latvia</item>
+        <item>Bahrain</item>
+        <item>Equatorial Guinea</item>
+        <item>Trinidad and Tobago</item>
+        <item>Estonia</item>
+        <item>Mauritius</item>
+        <item>Cyprus</item>
+        <item>Eswatini</item>
+        <item>Djibouti</item>
+        <item>Fiji</item>
+        <item>Comoros</item>
+        <item>Guyana</item>
+        <item>Bhutan</item>
+        <item>Solomon Islands</item>
+        <item>Montenegro</item>
+        <item>Luxembourg</item>
+        <item>Suriname</item>
+        <item>Cabo Verde</item>
+        <item>Micronesia</item>
+        <item>Maldives</item>
+        <item>Malta</item>
+        <item>Brunei</item>
+        <item>Belize</item>
+        <item>Bahamas</item>
+        <item>Iceland</item>
+        <item>Vanuatu</item>
+        <item>Barbados</item>
+        <item>Samoa</item>
+        <item>Saint Lucia</item>
+        <item>Kiribati</item>
+        <item>Grenada</item>
+        <item>Tonga</item>
+        <item>Seychelles</item>
+        <item>Antigua and Barbuda</item>
+        <item>Andorra</item>
+        <item>Dominica</item>
+        <item>Marshall Islands</item>
+        <item>Monaco</item>
+        <item>Liechtenstein</item>
+        <item>San Marino</item>
+        <item>Palau</item>
+        <item>Tuvalu</item>
+        <item>Nauru</item>
+        <item>Holy See</item>
+    </string-array>
+
+</resources>

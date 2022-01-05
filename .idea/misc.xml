@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Cloned/CovidAnd-WeatherUpdates/app/src/main/res/layout/fragment_covid_updates.xml" value="0.1" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/drawable/drawable_background_edit_text.xml" value="0.36302083333333335" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/drawable/drawable_button_background.xml" value="0.36302083333333335" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/layout/activity_main.xml" value="0.24479166666666666" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/layout/fragment_countories_list.xml" value="0.346875" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/layout/fragment_covid.xml" value="0.18866901599349417" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/layout/fragment_covid_updates.xml" value="0.3229166666666667" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/layout/fragment_other_diseases.xml" value="0.24479166666666666" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/layout/fragment_skin_diseases.xml" value="0.33" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/layout/row_recycler_countories_list.xml" value="0.346875" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/layout/row_recycler_covid_data.xml" value="0.346875" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/layout/row_recycler_diseases_list.xml" value="0.35104166666666664" />
+        <entry key="..\:/Cloned/diseasessymtoms/app/src/main/res/menu/bottom_nav_menu.xml" value="0.24479166666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

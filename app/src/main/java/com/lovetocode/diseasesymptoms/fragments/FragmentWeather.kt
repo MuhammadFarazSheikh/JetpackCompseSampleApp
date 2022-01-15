@@ -5,11 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.lovetocode.diseasesymptoms.R
+import com.lovetocode.diseasesymptoms.models.CountryCovidUpdatesDAO
+import com.lovetocode.diseasesymptoms.viewmodels.CountryCovidUpdatesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.Single
+import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 @AndroidEntryPoint
 class FragmentWeather : Fragment() {
+
+    val viewModel:CountryCovidUpdatesViewModel by viewModels()
+    private lateinit var compositeDisposable: CompositeDisposable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,8 +33,38 @@ class FragmentWeather : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initInstances()
+
+        compositeDisposable.add(
+            viewModel.getData("Pakistan")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { onSuccess, onError ->
+                    if(onSuccess!=null)
+                    {
+
+                    }
+                    if(onError!=null)
+                    {
+
+                    }
+                }
+        )
     }
 
-    companion object {
+    private fun initInstances()
+    {
+        compositeDisposable = CompositeDisposable()
+    }
+
+    override fun onDestroy() {
+
+        if(::compositeDisposable.isInitialized)
+        {
+            compositeDisposable.dispose()
+        }
+
+        super.onDestroy()
     }
 }

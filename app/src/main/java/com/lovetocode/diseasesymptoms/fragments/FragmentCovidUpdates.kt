@@ -98,7 +98,9 @@ class FragmentCovidUpdates : Fragment(),Observer<Resource<ArrayList<CountryCovid
         {
             is Resource.Success->
             {
-                setupUIData(t.value.first())
+                t.value.let {
+                    setupUIData(it.first())
+                }
             }
             is Resource.Failure->
             {

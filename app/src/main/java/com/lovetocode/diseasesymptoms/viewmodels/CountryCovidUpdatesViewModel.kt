@@ -7,9 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CountryCovidUpdatesViewModel @Inject constructor(var countryCovidUpdateRepositry: CountryCovidUpdateRepositry): ViewModel()
-{
+class CountryCovidUpdatesViewModel @Inject constructor(
+    var countryCovidUpdateRepositry: CountryCovidUpdateRepositry
+    ): ViewModel() {
     fun getCovidUpdatesByCountryName(name:String)= liveData{
         emit(countryCovidUpdateRepositry.getCovidUpdatesByCountryName(name))
     }
+
+    fun getData(name:String)= countryCovidUpdateRepositry.getData(name)
 }

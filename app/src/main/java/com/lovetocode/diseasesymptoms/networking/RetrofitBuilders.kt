@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.io.IOException
@@ -13,6 +14,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.jvm.Throws
 
 public const val BASE_URL: String = "https://covid-19-data.p.rapidapi.com/"
+public const val BASE_URL_WEATHER: String = "http://api.openweathermap.org/data/2.5/"
 
 fun buildClient(): OkHttpClient {
     val dispatcher = Dispatcher()
@@ -38,7 +40,9 @@ fun buildRetrofit(baseUrl: String): Retrofit {
         .baseUrl(baseUrl)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 }
 
-fun buildApiService(): ApiInterface = buildRetrofit(BASE_URL).create(ApiInterface::class.java)
+fun buildApiServiceForCovidUpdates(): ApiInterface = buildRetrofit(BASE_URL).create(ApiInterface::class.java)
+fun buildApiServiceForWeatherUpdates(): ApiInterface = buildRetrofit(BASE_URL_WEATHER).create(ApiInterface::class.java)

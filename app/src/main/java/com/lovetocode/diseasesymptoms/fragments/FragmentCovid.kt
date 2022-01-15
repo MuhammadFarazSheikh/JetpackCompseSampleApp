@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.asynclayoutinflater.view.AsyncLayoutInflater
 import androidx.navigation.findNavController
 import com.lovetocode.diseasesymptoms.R
 import com.lovetocode.diseasesymptoms.activities.MainActivity
@@ -30,6 +31,7 @@ class FragmentCovid : Fragment(),View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         binding = FragmentCovidBinding.inflate(layoutInflater)
         mContext = binding.root.context
         return binding.root

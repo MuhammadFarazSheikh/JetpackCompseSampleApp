@@ -33,9 +33,7 @@ class FragmentWeather : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initInstances()
-
         compositeDisposable.add(
             viewModel.getData("Pakistan")
                 .subscribeOn(Schedulers.io())

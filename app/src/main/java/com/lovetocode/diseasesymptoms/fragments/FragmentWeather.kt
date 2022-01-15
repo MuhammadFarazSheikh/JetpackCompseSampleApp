@@ -36,9 +36,6 @@ class FragmentWeather : Fragment() {
 
         initInstances()
 
-
-
-
         compositeDisposable.add(
             viewModel.getData("Pakistan")
                 .subscribeOn(Schedulers.io())

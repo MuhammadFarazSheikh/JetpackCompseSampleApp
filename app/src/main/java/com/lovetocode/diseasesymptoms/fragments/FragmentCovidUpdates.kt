@@ -35,10 +35,10 @@ import javax.inject.Inject
 import kotlin.system.measureTimeMillis
 
 @AndroidEntryPoint
-class FragmentCovidUpdates : Fragment(),Observer<Resource<ArrayList<CountryCovidUpdatesDAO>>> {
+class FragmentCovidUpdates : Fragment(), Observer<Resource<ArrayList<CountryCovidUpdatesDAO>>> {
 
-    val viewModel:CountryCovidUpdatesViewModel by viewModels()
-    private lateinit var binding:FragmentCovidUpdatesBinding
+    val viewModel: CountryCovidUpdatesViewModel by viewModels()
+    private lateinit var binding: FragmentCovidUpdatesBinding
     private lateinit var mContext: Context
     private lateinit var googleMap: GoogleMap
 
@@ -55,55 +55,81 @@ class FragmentCovidUpdates : Fragment(),Observer<Resource<ArrayList<CountryCovid
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViews()
         setupListeners()
     }
 
-    private fun setupUIData(countryCovidUpdatesDAO: CountryCovidUpdatesDAO)
-    {
+    private fun setupUIData(countryCovidUpdatesDAO: CountryCovidUpdatesDAO) {
         binding.dataDTO = countryCovidUpdatesDAO
 
-        lifecycleScope.launchWhenCreated {
-            val mapFragment: SupportMapFragment =
-                childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
-            googleMap=mapFragment.awaitMap()
-            googleMap.addMarker {
-                title(countryCovidUpdatesDAO.country)
-                position(LatLng(
-                    countryCovidUpdatesDAO.latitude.toDouble(),countryCovidUpdatesDAO.longitude.toDouble()
-                ))
-            }
-            googleMap.apply {
-                moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        LatLng(
-                            countryCovidUpdatesDAO.latitude.toDouble(),countryCovidUpdatesDAO.longitude.toDouble()
-                        ),
-                        50f
-                    )
+        googleMap.addMarker {
+            title(countryCovidUpdatesDAO.country)
+            position(
+                LatLng(
+                    countryCovidUpdatesDAO.latitude.toDouble(),
+                    countryCovidUpdatesDAO.longitude.toDouble()
                 )
-                uiSettings.setAllGesturesEnabled(false)
+            )
+        }
+        googleMap.apply {
+            moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(
+                        countryCovidUpdatesDAO.latitude.toDouble(),
+                        countryCovidUpdatesDAO.longitude.toDouble()
+                    ),
+                    50f
+                )
+            )
+        }
+    }
+
+    private fun showLoadingMessage() {
+        binding.loadingString = resources.getString(R.string.text_loading_message)
+    }
+
+    private fun showErrorMessage() {
+        binding.loadingString = resources.getString(R.string.text_error_message)
+    }
+
+    private fun showData() {
+        binding.isShowData = true
+    }
+
+    private fun hideData() {
+        binding.isShowData = false
+    }
+
+    private fun initViews() {
+        lifecycleScope.launchWhenCreated {
+            googleMap =
+                (childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment).awaitMap()
+            googleMap.let {
+                it.uiSettings.setAllGesturesEnabled(false)
             }
         }
     }
 
-    private fun setupListeners()
-    {
+    private fun setupListeners() {
         arguments?.getString(KeyUtils.SELECTED_COUNTRY_NAME)?.let {
-                viewModel.getCovidUpdatesByCountryName(it).observe(viewLifecycleOwner,this)
-            }
+            showLoadingMessage()
+            hideData()
+            viewModel.getCovidUpdatesByCountryName(it).observe(viewLifecycleOwner, this)
+        }
     }
 
     override fun onChanged(t: Resource<ArrayList<CountryCovidUpdatesDAO>>) {
-        when(t)
-        {
-            is Resource.Success->
-            {
-                t.value.let {
-                    setupUIData(it.first())
+        when (t) {
+            is Resource.Success -> {
+                if (!t.value.isNullOrEmpty()) {
+                    showData()
+                    setupUIData(t.value.first())
+                } else {
+                    hideData()
+                    showErrorMessage()
                 }
             }
-            is Resource.Failure->
-            {
+            is Resource.Failure -> {
 
             }
         }

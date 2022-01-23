@@ -21,8 +21,12 @@
     <string name="text_deaths">Deaths:</string>
     <string name="text_latitude">Latitude:</string>
     <string name="text_longitude">Longitude:</string>
-    <string name="text_last_change">Last change:</string>
-    <string name="text_last_update">Last update:</string>
+    <string name="text_last_change_date">Last change date:</string>
+    <string name="text_last_change_time">Last change time:</string>
+    <string name="text_last_update_date">Last update date:</string>
+    <string name="text_last_update_time">Last update time:</string>
+    <string name="text_loading_message">Please wait...\nLoading covid update</string>
+    <string name="text_error_message">Sorry. No updates for selected country.</string>
 
     <string-array name="most_common_symtoms">
         <item>Fever</item>

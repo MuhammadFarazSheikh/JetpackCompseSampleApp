@@ -7,14 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.lovetocode.diseasesymptoms.R
-import com.lovetocode.diseasesymptoms.models.CountryCovidUpdatesDAO
 import com.lovetocode.diseasesymptoms.viewmodels.CountryCovidUpdatesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
-import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 @AndroidEntryPoint

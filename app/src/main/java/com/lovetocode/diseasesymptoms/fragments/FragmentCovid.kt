@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
+import androidx.lifecycle.asLiveData
 import androidx.navigation.findNavController
 import androidx.work.*
 import com.lovetocode.diseasesymptoms.R
@@ -17,11 +18,14 @@ import com.lovetocode.diseasesymptoms.adapters.CovidDataAdapter
 import com.lovetocode.diseasesymptoms.backgroundprocesses.LocationWorkManager
 import com.lovetocode.diseasesymptoms.databinding.FragmentCovidBinding
 import com.lovetocode.diseasesymptoms.utils.CommonUtils
+import com.lovetocode.diseasesymptoms.utils.PreferenceDataStoreUtils
 import com.lovetocode.diseasesymptoms.utils.RuntimePermissionUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 @AndroidEntryPoint
 class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
@@ -102,7 +106,15 @@ class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
 
     override fun onChanged(inWorkInfo: WorkInfo) {
         inWorkInfo.let {
-            it.progress
+            PreferenceDataStoreUtils.readLatData(mContext).asLiveData(EmptyCoroutineContext).observe(viewLifecycleOwner)
+            {
+                it
+            }
+
+            PreferenceDataStoreUtils.readLongData(mContext).asLiveData(EmptyCoroutineContext).observe(viewLifecycleOwner)
+            {
+                it
+            }
         }
     }
 }

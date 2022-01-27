@@ -4,19 +4,23 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Looper
 import android.util.Log
+import androidx.work.ForegroundInfo
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.google.android.gms.location.*
+import com.google.common.util.concurrent.ListenableFuture
+import com.lovetocode.diseasesymptoms.utils.PreferenceDataStoreUtils
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import kotlin.coroutines.suspendCoroutine
 
 class LocationWorkManager(var context: Context, var parameters: WorkerParameters) :
     Worker(context, parameters) {
 
     @SuppressLint("MissingPermission")
     override fun doWork(): Result {
-        var results:Result?=null
         LocationServices.getFusedLocationProviderClient(context).apply {
             requestLocationUpdates(
                 LocationRequest.create().apply {
@@ -27,9 +31,14 @@ class LocationWorkManager(var context: Context, var parameters: WorkerParameters
                 {
                     override fun onLocationResult(locationResult: LocationResult) {
                         super.onLocationResult(locationResult)
+
                         locationResult.let {
-                            results=Result.success(workDataOf("Lat" to it.locations.get(0).latitude,"Long" to it.locations.get(0).longitude))
-                            removeLocationUpdates(this)
+                            /*PreferenceDataStoreUtils
+                                .saveLocationDataData(
+                                context,
+                                    it.locations.get(0).latitude.toString(),
+                                    it.locations.get(0).longitude.toString())
+                            removeLocationUpdates(this)*/
                         }
                     }
 
@@ -39,10 +48,6 @@ class LocationWorkManager(var context: Context, var parameters: WorkerParameters
                 } , Looper.getMainLooper())
         }
 
-        /*runBlocking {
-            delay(5000)
-        }*/
-
-        return results!!
+        return Result.success()
     }
 }

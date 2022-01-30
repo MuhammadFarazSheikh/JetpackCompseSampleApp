@@ -20,6 +20,16 @@
             name="covidPreventions"
             type="com.lovetocode.diseasesymptoms.adapters.CovidDataAdapter" />
 
+        <import type="android.view.View"/>
+
+        <variable
+            name="isShowData"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="dataDTO"
+            type="com.lovetocode.diseasesymptoms.models.CountryCovidUpdatesDAO" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -144,6 +154,178 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/textViewCovidPreventions" />
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    app:cardElevation="3dp"
+                    android:layout_marginHorizontal="20dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/rvPreventions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="10dp"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:visibility="@{isShowData?View.GONE:View.VISIBLE}"
+                            android:id="@+id/progressBar"
+                            android:indeterminate="true"
+                            android:layout_width="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_height="wrap_content"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewCountryName"
+                            app:fontFamily="@font/montserrat_semibold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:visibility="@{isShowData?View.VISIBLE:View.GONE}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="@{@string/text_country+` `+dataDTO.country,default=jsakdjsakld}"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewCode"
+                            android:visibility="@{isShowData?View.VISIBLE:View.GONE}"
+                            app:fontFamily="@font/montserrat_semibold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="@{@string/text_code+` `+dataDTO.code,default=jsakdjsakld}"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewConfirmed"
+                            android:visibility="@{isShowData?View.VISIBLE:View.GONE}"
+                            app:fontFamily="@font/montserrat_semibold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textViewCountryName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="@{@string/text_confirmed+` `+dataDTO.confirmed,default=jsakdjsakld}"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewRecovered"
+                            android:visibility="@{isShowData?View.VISIBLE:View.GONE}"
+                            app:fontFamily="@font/montserrat_semibold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textViewCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="@{@string/text_recovered+` `+dataDTO.recovered,default=jsakdjsakld}"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewCritical"
+                            android:visibility="@{isShowData?View.VISIBLE:View.GONE}"
+                            app:fontFamily="@font/montserrat_semibold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textViewConfirmed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="@{@string/text_critical+` `+dataDTO.critical,default=jsakdjsakld}"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewDeaths"
+                            android:visibility="@{isShowData?View.VISIBLE:View.GONE}"
+                            app:fontFamily="@font/montserrat_semibold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textViewRecovered"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="@{@string/text_deaths+` `+dataDTO.deaths,default=jsakdjsakld}"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewLatitude"
+                            android:visibility="@{isShowData?View.VISIBLE:View.GONE}"
+                            app:fontFamily="@font/montserrat_semibold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textViewCritical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="@{@string/text_latitude+` `+dataDTO.latitude,default=jsakdjsakld}"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewLongitude"
+                            android:visibility="@{isShowData?View.VISIBLE:View.GONE}"
+                            app:fontFamily="@font/montserrat_semibold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textViewDeaths"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="@{@string/text_longitude+` `+dataDTO.longitude,default=jsakdjsakld}"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewLastChange"
+                            android:visibility="@{isShowData?View.VISIBLE:View.GONE}"
+                            app:fontFamily="@font/montserrat_semibold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textViewLatitude"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:setLastChange="@{dataDTO.lastChange}"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/textViewLastUpdate"
+                            android:visibility="@{isShowData?View.VISIBLE:View.GONE}"
+                            app:fontFamily="@font/montserrat_semibold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textViewLastChange"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:setLastUpdated="@{dataDTO.lastUpdate}"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="wrap_content"
                     android:textColor="@color/white"
@@ -156,7 +338,7 @@
                     android:text="@string/text_covid_updates"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rvPreventions"
+                    app:layout_constraintTop_toBottomOf="@id/cardView"
                     android:layout_height="wrap_content"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

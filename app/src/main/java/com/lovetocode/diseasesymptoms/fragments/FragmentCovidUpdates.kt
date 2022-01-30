@@ -6,14 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
@@ -21,23 +18,15 @@ import com.google.maps.android.ktx.awaitMap
 import com.lovetocode.diseasesymptoms.R
 import com.lovetocode.diseasesymptoms.databinding.FragmentCovidUpdatesBinding
 import com.lovetocode.diseasesymptoms.models.CountryCovidUpdatesDAO
-import com.lovetocode.diseasesymptoms.viewmodels.CountryCovidUpdatesViewModel
+import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
 import com.montymobile.callsignature.networking.Resource
 import com.montymobile.callsignature.utils.KeyUtils
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.async
-import kotlinx.coroutines.channels.produce
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.runBlocking
-import java.util.concurrent.atomic.AtomicInteger
-import javax.inject.Inject
-import kotlin.system.measureTimeMillis
 
 @AndroidEntryPoint
 class FragmentCovidUpdates : Fragment(), Observer<Resource<ArrayList<CountryCovidUpdatesDAO>>> {
 
-    val viewModel: CountryCovidUpdatesViewModel by viewModels()
+    val viewModel: CommonViewModel by viewModels()
     private lateinit var binding: FragmentCovidUpdatesBinding
     private lateinit var mContext: Context
     private lateinit var googleMap: GoogleMap

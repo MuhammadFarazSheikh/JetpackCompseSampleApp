@@ -9,18 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.work.*
+import com.google.android.gms.maps.model.LatLng
 import com.lovetocode.diseasesymptoms.R
 import com.lovetocode.diseasesymptoms.adapters.CovidDataAdapter
 import com.lovetocode.diseasesymptoms.backgroundprocesses.LocationWorkManager
 import com.lovetocode.diseasesymptoms.databinding.FragmentCovidBinding
-import com.lovetocode.diseasesymptoms.utils.CommonUtils
-import com.lovetocode.diseasesymptoms.utils.PreferenceDataStoreUtils
-import com.lovetocode.diseasesymptoms.utils.RuntimePermissionUtils
+import com.lovetocode.diseasesymptoms.utils.*
+import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
+import com.montymobile.callsignature.networking.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -32,6 +37,7 @@ class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
 
     private lateinit var binding: FragmentCovidBinding
     private lateinit var mContext: Context
+    val commonViewModel:CommonViewModel by viewModels()
 
     @Inject
     lateinit var mostCommon: CovidDataAdapter
@@ -62,11 +68,10 @@ class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
         populateSymptomsList()
         setupListeners()
 
+        binding.isShowData = false
+
         if (RuntimePermissionUtils.checkIfLocationPermissionsGranted(mContext)) {
-            WorkManager.getInstance(mContext)
-                .enqueue(OneTimeWorkRequestBuilder<LocationWorkManager>().build().apply {
-                    WorkManager.getInstance(mContext).getWorkInfoByIdLiveData(id).observe(viewLifecycleOwner,this@FragmentCovid)
-                })
+            BackgroundProcessUtils.startWorkManager(mContext, viewLifecycleOwner, this)
         } else {
             var permissionsRequest =
                 registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(),
@@ -74,6 +79,13 @@ class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
                         var check = false
                         it.values.forEach {
                             check = it
+                        }
+                        if (check) {
+                            BackgroundProcessUtils.startWorkManager(
+                                mContext,
+                                viewLifecycleOwner,
+                                this
+                            )
                         }
                     })
             RuntimePermissionUtils.grantLocationPermission(permissionsRequest)
@@ -104,16 +116,32 @@ class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
         }
     }
 
-    override fun onChanged(inWorkInfo: WorkInfo) {
-        inWorkInfo.let {
-            PreferenceDataStoreUtils.readLatData(mContext).asLiveData(EmptyCoroutineContext).observe(viewLifecycleOwner)
-            {
-                it
-            }
-
-            PreferenceDataStoreUtils.readLongData(mContext).asLiveData(EmptyCoroutineContext).observe(viewLifecycleOwner)
-            {
-                it
+    override fun onChanged(t: WorkInfo?) {
+        lifecycleScope.launch {
+            PreferenceDataStoreUtils.readLatLngData(mContext).let {
+                if (!it.isNullOrBlank()) {
+                    LocationUtils.getCountryNameByLocation(
+                        mContext, LatLng(
+                            it.split("/").get(0).toDouble(), it.split("/").get(1).toDouble())).let {
+                                if(!it.isNullOrEmpty())
+                                {
+                                    commonViewModel.getCovidUpdatesByCountryName(it).observe(viewLifecycleOwner)
+                                    {
+                                        when(it)
+                                        {
+                                            is Resource.Success->
+                                            {
+                                                if(!it.value.isNullOrEmpty())
+                                                {
+                                                    binding.dataDTO = it.value.get(0)
+                                                    binding.isShowData = true
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                    }
+                }
             }
         }
     }

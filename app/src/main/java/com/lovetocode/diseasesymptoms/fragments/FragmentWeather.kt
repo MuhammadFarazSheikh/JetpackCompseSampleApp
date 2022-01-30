@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.lovetocode.diseasesymptoms.R
-import com.lovetocode.diseasesymptoms.viewmodels.CountryCovidUpdatesViewModel
+import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 @AndroidEntryPoint
 class FragmentWeather : Fragment() {
 
-    val viewModel:CountryCovidUpdatesViewModel by viewModels()
+    val viewModel:CommonViewModel by viewModels()
     private lateinit var compositeDisposable: CompositeDisposable
 
     override fun onCreateView(

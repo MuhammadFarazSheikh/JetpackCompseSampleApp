@@ -10,30 +10,22 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.work.*
 import com.google.android.gms.maps.model.LatLng
 import com.lovetocode.diseasesymptoms.R
 import com.lovetocode.diseasesymptoms.adapters.CovidDataAdapter
-import com.lovetocode.diseasesymptoms.backgroundprocesses.LocationWorkManager
 import com.lovetocode.diseasesymptoms.databinding.FragmentCovidBinding
+import com.lovetocode.diseasesymptoms.interfaces.OnLocationSelected
 import com.lovetocode.diseasesymptoms.utils.*
 import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
 import com.montymobile.callsignature.networking.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.util.concurrent.Executor
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
 @AndroidEntryPoint
-class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
+class FragmentCovid : Fragment(), View.OnClickListener,OnLocationSelected {
 
     private lateinit var binding: FragmentCovidBinding
     private lateinit var mContext: Context
@@ -71,7 +63,7 @@ class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
         binding.isShowData = false
 
         if (RuntimePermissionUtils.checkIfLocationPermissionsGranted(mContext)) {
-            BackgroundProcessUtils.startWorkManager(mContext, viewLifecycleOwner, this)
+            LocationUtils.getLiveLocation(mContext,this)
         } else {
             var permissionsRequest =
                 registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(),
@@ -81,11 +73,7 @@ class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
                             check = it
                         }
                         if (check) {
-                            BackgroundProcessUtils.startWorkManager(
-                                mContext,
-                                viewLifecycleOwner,
-                                this
-                            )
+                            LocationUtils.getLiveLocation(mContext,this)
                         }
                     })
             RuntimePermissionUtils.grantLocationPermission(permissionsRequest)
@@ -97,6 +85,39 @@ class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
         binding.lessCommon = lessCommon
         binding.serious = serious
         binding.covidPreventions = covidPreventions
+    }
+
+    private fun getDataForCovid()
+    {
+        lifecycleScope.launch {
+            PreferenceDataStoreUtils.readLatLngData(mContext).let {
+                if (!it.isNullOrEmpty() && !it.startsWith("null")) {
+                    LocationUtils.getCountryNameByLocation(
+                        mContext, LatLng(
+                            it.split("/").get(0).toDouble(), it.split("/").get(1).toDouble())
+                    )
+                        .let {
+                            if(!it.isNullOrEmpty())
+                            {
+                                commonViewModel.getCovidUpdatesByCountryName(it).observe(viewLifecycleOwner)
+                                {
+                                    when(it)
+                                    {
+                                        is Resource.Success->
+                                        {
+                                            if(!it.value.isNullOrEmpty())
+                                            {
+                                                binding.dataDTO = it.value.get(0)
+                                                binding.isShowData = true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                }
+            }
+        }
     }
 
     private fun setupListeners() {
@@ -116,33 +137,7 @@ class FragmentCovid : Fragment(), View.OnClickListener, Observer<WorkInfo> {
         }
     }
 
-    override fun onChanged(t: WorkInfo?) {
-        lifecycleScope.launch {
-            PreferenceDataStoreUtils.readLatLngData(mContext).let {
-                if (!it.isNullOrBlank()) {
-                    LocationUtils.getCountryNameByLocation(
-                        mContext, LatLng(
-                            it.split("/").get(0).toDouble(), it.split("/").get(1).toDouble())).let {
-                                if(!it.isNullOrEmpty())
-                                {
-                                    commonViewModel.getCovidUpdatesByCountryName(it).observe(viewLifecycleOwner)
-                                    {
-                                        when(it)
-                                        {
-                                            is Resource.Success->
-                                            {
-                                                if(!it.value.isNullOrEmpty())
-                                                {
-                                                    binding.dataDTO = it.value.get(0)
-                                                    binding.isShowData = true
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                    }
-                }
-            }
-        }
+    override fun onLocationSelected() {
+        getDataForCovid()
     }
 }

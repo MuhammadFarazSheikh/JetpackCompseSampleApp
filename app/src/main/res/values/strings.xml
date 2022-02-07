@@ -27,6 +27,8 @@
     <string name="text_last_update_time">Last update time:</string>
     <string name="text_loading_message">Please wait...\nLoading covid update</string>
     <string name="text_error_message">Sorry. No updates for selected country.</string>
+    <string name="text_country_pakistan">Pakistan</string>
+    <string name="text_other_options">FragmentOtherOptions</string>
 
     <string-array name="most_common_symtoms">
         <item>Fever</item>

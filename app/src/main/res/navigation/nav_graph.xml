@@ -41,6 +41,17 @@
         android:id="@+id/weatherTab"
         android:name="com.lovetocode.diseasesymptoms.fragments.FragmentWeather"
         android:label="@string/text_other_diseases"
-        tools:layout="@layout/fragment_weather" />
+        tools:layout="@layout/fragment_weather" >
+
+        <action android:id="@+id/weatherActionTab"
+            app:destination="@id/otherOptionsFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/otherOptionsFragment"
+        android:name="com.lovetocode.diseasesymptoms.fragments.FragmentOtherOptions"
+        android:label="@string/text_other_options"
+        tools:layout="@layout/fragment_other_options" />
 
 </navigation>

@@ -8,13 +8,22 @@ import com.montymobile.interfaces.ApiInterface
 import javax.inject.Inject
 
 
-class CountryCovidUpdateRepositry @Inject constructor(
+open class CommonRepositry @Inject constructor(
     @CovidUpdatesBaseUrl var apiInterfaceCovidUpdates: ApiInterface,
     @WeatherUpdatesBaseUrl var apiInterfaceWeatherUpdates: ApiInterface
     ): BaseRepository() {
+
     suspend fun getCovidUpdatesByCountryName(name:String)=safeApiCall {
         apiInterfaceCovidUpdates.searchByName(name)
     }
 
     fun getData(name:String)=apiInterfaceWeatherUpdates.getData(ApiEndPoints.SEARCH_WEATHER_BY_NAME+name+ ApiEndPoints.WEATHER_API_APP_ID)
+
+    open fun data():Boolean{
+        return true
+    }
+
+    open fun dataState(){
+
+    }
 }

@@ -42,6 +42,7 @@ import io.reactivex.schedulers.Schedulers
 class FragmentWeather : Fragment() {
 
     val viewModel: CommonViewModel by viewModels()
+    private lateinit var composeView: ComposeView
     private lateinit var compositeDisposable: CompositeDisposable
 
     override fun onCreateView(
@@ -49,11 +50,8 @@ class FragmentWeather : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return ComposeView(requireContext()).apply {
-            setContent {
-                mainContent()
-            }
-        }
+        composeView = ComposeView(requireContext())
+        return composeView
     }
 
     @Composable
@@ -276,6 +274,11 @@ class FragmentWeather : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { onSuccess, onError ->
                     if (onSuccess != null) {
+                        composeView.apply {
+                            setContent {
+                                mainContent()
+                            }
+                        }
                     }
                     if (onError != null) {
 

@@ -54,7 +54,7 @@ class FragmentOtherOptions : Fragment() {
     @Composable
     fun mainContent()
     {
-        var pagerState = rememberPagerState(initialPage = TabPage.values().size)
+        var pagerState = rememberPagerState(initialPage = 0)
         val scope = rememberCoroutineScope()
         Scaffold(topBar = {
             TabHome(selectedTabIndex =pagerState.currentPage , onSelectedTabPage ={
@@ -63,7 +63,7 @@ class FragmentOtherOptions : Fragment() {
                 }
             } )
         }) {
-            HorizontalPager(count = TabPage.values().size, state = pagerState) {index->
+            HorizontalPager(state = pagerState, count = TabPage.values().size) {index->
                 Text(text = TabPage.values().get(index).name)
             }
         }

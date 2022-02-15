@@ -22,6 +22,7 @@ import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
 import com.montymobile.callsignature.networking.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -96,23 +97,23 @@ class FragmentCovid : Fragment(), View.OnClickListener,OnLocationSelected {
                         mContext, LatLng(
                             it.split("/").get(0).toDouble(), it.split("/").get(1).toDouble())
                     )
-                        .let {
+                        .let {countryName ->
                             if(!it.isNullOrEmpty())
                             {
-                                commonViewModel.getCovidUpdatesByCountryName(it).observe(viewLifecycleOwner)
-                                {
-                                    when(it)
+                                    /*commonViewModel.getCovidUpdatesByCountryName(countryName).observe(it)
                                     {
-                                        is Resource.Success->
+                                        when(it)
                                         {
-                                            if(!it.value.isNullOrEmpty())
+                                            is Resource.Success->
                                             {
-                                                binding.dataDTO = it.value.get(0)
-                                                binding.isShowData = true
+                                                if(!it.value.isNullOrEmpty())
+                                                {
+                                                    binding.dataDTO = it.value.get(0)
+                                                    binding.isShowData = true
+                                                }
                                             }
                                         }
-                                    }
-                                }
+                                    }*/
                             }
                         }
                 }

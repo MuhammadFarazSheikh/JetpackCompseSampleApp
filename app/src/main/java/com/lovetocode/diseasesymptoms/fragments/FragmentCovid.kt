@@ -100,7 +100,7 @@ class FragmentCovid : Fragment(), View.OnClickListener,OnLocationSelected {
                         .let {countryName ->
                             if(!it.isNullOrEmpty())
                             {
-                                    /*commonViewModel.getCovidUpdatesByCountryName(countryName).observe(it)
+                                    commonViewModel.getCovidUpdatesByCountryName(countryName).observe(viewLifecycleOwner)
                                     {
                                         when(it)
                                         {
@@ -113,7 +113,7 @@ class FragmentCovid : Fragment(), View.OnClickListener,OnLocationSelected {
                                                 }
                                             }
                                         }
-                                    }*/
+                                    }
                             }
                         }
                 }

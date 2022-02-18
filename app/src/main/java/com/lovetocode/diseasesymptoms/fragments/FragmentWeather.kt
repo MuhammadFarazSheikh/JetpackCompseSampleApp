@@ -57,7 +57,7 @@ class FragmentWeather : Fragment() {
     @Composable
     fun topBar() {
         TopAppBar(
-            backgroundColor = Color.Black,
+            backgroundColor = Color(R.color.cloud_burst),
             contentPadding = PaddingValues(10.dp, 0.dp, 0.dp, 0.dp)
         ) {
             Text(
@@ -73,7 +73,7 @@ class FragmentWeather : Fragment() {
     fun innerContent() {
         ConstraintLayout(
             modifier = Modifier
-                .background(color = Color.Black)
+                .background(color = Color(R.color.cloud_burst))
                 .fillMaxHeight()
                 .fillMaxWidth()
         ) {
@@ -258,7 +258,7 @@ class FragmentWeather : Fragment() {
     @Preview
     @Composable
     fun mainContent() {
-        Scaffold(backgroundColor = Color.White, topBar = {
+        Scaffold(topBar = {
             topBar()
         }) {
             innerContent()

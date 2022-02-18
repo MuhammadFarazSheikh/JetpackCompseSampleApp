@@ -1,5 +1,7 @@
 package com.lovetocode.diseasesymptoms
 
+import android.util.Log
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asLiveData
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
@@ -15,6 +17,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InOrder
@@ -28,6 +31,10 @@ import java.util.concurrent.CountDownLatch
 
 @RunWith(AndroidJUnit4::class)
 class ViewModelsTestCases {
+
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
     private lateinit var commonViewModel: CommonViewModel
 
     @Mock
@@ -36,13 +43,29 @@ class ViewModelsTestCases {
     @Before
     fun init() {
         MockitoAnnotations.openMocks(this)
-        commonRepositry.apiInterfaceWeatherUpdates = buildApiServiceForWeatherUpdates()
+        commonRepositry.apiInterfaceCovidUpdates = buildApiServiceForCovidUpdates()
         commonViewModel = CommonViewModel(commonRepositry)
     }
 
     @Test
     fun check_api_response() {
-        commonViewModel.data()
+        commonViewModel
+            .getCovidUpdatesByCountryName("Pakistan")
+            .getOrWaitData()
+            .let {
+                when(it)
+                {
+                    is Resource.Success->
+                    {
+                    }
+                    is Resource.Failure->
+                    {
+                    }
+                    is Resource.Loading->
+                    {
+                    }
+                }
+            }
         //commonViewModel.dataState()
         //Mockito.verify(commonRepositry,times(2)).data()
         //Mockito.verify(commonRepositry, atLeast(1)).data()

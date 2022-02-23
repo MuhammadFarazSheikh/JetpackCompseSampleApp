@@ -9,10 +9,7 @@ import androidx.compose.animation.expandHorizontally
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +17,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -32,7 +30,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.lovetocode.diseasesymptoms.R
+import com.lovetocode.diseasesymptoms.models.BaseBO
+import com.lovetocode.diseasesymptoms.others.Constants
+import com.lovetocode.diseasesymptoms.utils.DateTimeUtils
+import com.lovetocode.diseasesymptoms.utils.TemperatureUtils
 import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
+import com.montymobile.callsignature.utils.KeyUtils
+import com.skydoves.landscapist.glide.GlideImage
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -41,6 +45,7 @@ import io.reactivex.schedulers.Schedulers
 @AndroidEntryPoint
 class FragmentWeather : Fragment() {
 
+    private lateinit var baseBO: BaseBO
     val viewModel: CommonViewModel by viewModels()
     private lateinit var composeView: ComposeView
     private lateinit var compositeDisposable: CompositeDisposable
@@ -51,13 +56,17 @@ class FragmentWeather : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         composeView = ComposeView(requireContext())
-        return composeView
+        return composeView.apply {
+            setContent {
+                showLoadingMessage()
+            }
+        }
     }
 
     @Composable
     fun topBar() {
         TopAppBar(
-            backgroundColor = Color(R.color.cloud_burst),
+            backgroundColor = colorResource(R.color.light_slate_grey_color),
             contentPadding = PaddingValues(10.dp, 0.dp, 0.dp, 0.dp)
         ) {
             Text(
@@ -70,10 +79,26 @@ class FragmentWeather : Fragment() {
     }
 
     @Composable
+    fun showLoadingMessage() {
+        Text(
+            text = stringResource(R.string.text_loding_message),
+            color = Color.White,
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(
+                    color = colorResource(R.color.light_slate_grey_color)
+                ),
+            textAlign = TextAlign.Center,
+            fontSize = 30.sp
+        )
+    }
+
+    @Composable
     fun innerContent() {
         ConstraintLayout(
             modifier = Modifier
-                .background(color = Color(R.color.cloud_burst))
+                .background(color = colorResource(R.color.light_slate_grey_color))
                 .fillMaxHeight()
                 .fillMaxWidth()
         ) {
@@ -89,10 +114,10 @@ class FragmentWeather : Fragment() {
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .border(
-                        border = BorderStroke(2.dp, Color.Red),
+                        border = BorderStroke(5.dp, colorResource(R.color.gray_chateau)),
                         shape = RoundedCornerShape(5.dp)
                     )
-                    .padding(15.dp, 10.dp, 15.dp, 10.dp)
+                    .padding(15.dp, 15.dp, 15.dp, 15.dp)
             ) {
                 var (timeAndDate, weather, weatherCondition) = createRefs()
                 Column(modifier = Modifier.constrainAs(timeAndDate)
@@ -100,14 +125,14 @@ class FragmentWeather : Fragment() {
                     top.linkTo(parent.top)
                 }) {
                     Text(
-                        text = "28 Sep 2019",
+                        text = DateTimeUtils.getCurrentDateByFormat(Constants.DATE_FORMAT_NEW),
                         color = Color.White,
                         fontSize = 10.sp,
                         fontFamily = FontFamily.SansSerif
                     )
                     Text(
                         modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                        text = "11:47 AM",
+                        text = DateTimeUtils.getCurrentDateByFormat(Constants.TIME_FORMAT_NEW),
                         color = Color.White,
                         fontSize = 10.sp,
                         fontFamily = FontFamily.SansSerif
@@ -120,7 +145,7 @@ class FragmentWeather : Fragment() {
                 }) {
                     Text(
                         modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                        text = "13℃",
+                        text = TemperatureUtils.convertKelvinToCelcius(baseBO.main.temp.toDouble()).toInt().toString()+"\u2103",
                         color = Color.White,
                         fontSize = 15.sp,
                         fontFamily = FontFamily.SansSerif
@@ -128,7 +153,10 @@ class FragmentWeather : Fragment() {
 
                     Text(
                         modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                        text = "Max 15℃~Min 12℃",
+                        text = "Max:" + TemperatureUtils.convertKelvinToCelcius(baseBO.main.temp_max.toDouble()).toInt()
+                            .toString() + "\u2103" +
+                                "~Min:" + TemperatureUtils.convertKelvinToCelcius(baseBO.main.temp_min.toDouble()).toInt()
+                            .toString() + "\u2103",
                         color = Color.White,
                         fontSize = 12.sp,
                         fontFamily = FontFamily.SansSerif
@@ -136,7 +164,8 @@ class FragmentWeather : Fragment() {
 
                     Text(
                         modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                        text = "Wind N,1.5KM/h",
+                        text = "Wind:" + TemperatureUtils.getWindDirection(baseBO.wind.deg.toDouble().toInt()) +
+                                "," + baseBO.wind.speed + " KM/h",
                         color = Color.White,
                         fontSize = 12.sp,
                         fontFamily = FontFamily.SansSerif
@@ -146,17 +175,21 @@ class FragmentWeather : Fragment() {
                 Column(modifier = Modifier.constrainAs(weatherCondition) {
                     end.linkTo(parent.end)
                 }) {
-                    Image(
-                        painter = painterResource(id = R.drawable.autoimmune_disease),
+                    GlideImage(
+                        imageModel = stringResource(R.string.base_url_image)
+                                + (baseBO.weather.get(0).icon
+                                + stringResource(
+                            R.string.image_extension
+                        )),
                         contentDescription = "",
                         modifier = Modifier
                             .align(alignment = Alignment.CenterHorizontally)
-                            .width(15.dp)
-                            .height(15.dp)
+                            .width(30.dp)
+                            .height(30.dp)
                     )
 
                     Text(
-                        text = "Broken Clouds",
+                        text = baseBO.weather.get(0).description,
                         color = Color.White,
                         fontFamily = FontFamily.SansSerif,
                         fontSize = 12.sp
@@ -169,29 +202,30 @@ class FragmentWeather : Fragment() {
                     .wrapContentHeight()
                     .wrapContentWidth()
                     .border(
-                        border = BorderStroke(2.dp, color = Color.Red),
+                        border = BorderStroke(2.dp, color = colorResource(R.color.gray_chateau)),
                         shape = RoundedCornerShape(5.dp)
                     )
                     .background(color = Color.DarkGray)
-                    .padding(10.dp, 10.dp, 10.dp, 10.dp)
+                    .padding(15.dp, 15.dp, 15.dp, 15.dp)
                     .constrainAs(bottomOne) {
-                        top.linkTo(topLayout.bottom, 15.dp)
+                        top.linkTo(topLayout.bottom, 40.dp)
                         start.linkTo(parent.start)
                         end.linkTo(bottomTwo.start)
                     }) {
 
-                Image(
-                    painter = painterResource(id = R.drawable.autoimmune_disease),
+                Icon(
+                    painter = painterResource(id = R.drawable.pressure_icon),
                     contentDescription = "",
                     Modifier
                         .width(20.dp)
                         .height(20.dp)
-                        .align(alignment = Alignment.CenterHorizontally)
+                        .align(alignment = Alignment.CenterHorizontally),
+                    tint = Color.White
                 )
 
                 Text(
                     textAlign = TextAlign.Center,
-                    text = "Pressure\n1010.0hpa",
+                    text = stringResource(R.string.pressure_text)+"\n"+baseBO.main.pressure.toString() + " hpa",
                     color = Color.White,
                     fontSize = 12.sp,
                     fontFamily = FontFamily.SansSerif
@@ -203,29 +237,30 @@ class FragmentWeather : Fragment() {
                     .wrapContentHeight()
                     .wrapContentWidth()
                     .border(
-                        border = BorderStroke(2.dp, color = Color.Red),
+                        border = BorderStroke(2.dp, color = colorResource(R.color.gray_chateau)),
                         shape = RoundedCornerShape(5.dp)
                     )
                     .background(color = Color.DarkGray)
-                    .padding(10.dp, 10.dp, 10.dp, 10.dp)
+                    .padding(15.dp, 15.dp, 15.dp, 15.dp)
                     .constrainAs(bottomTwo) {
-                        top.linkTo(topLayout.bottom, 15.dp)
+                        top.linkTo(topLayout.bottom, 40.dp)
                         end.linkTo(parent.end)
                         start.linkTo(bottomOne.end)
                     }) {
 
-                Image(
-                    painter = painterResource(id = R.drawable.autoimmune_disease),
+                Icon(
+                    painter = painterResource(id = R.drawable.humidity_icon),
                     contentDescription = "",
                     Modifier
                         .width(20.dp)
                         .height(20.dp)
-                        .align(alignment = Alignment.CenterHorizontally)
+                        .align(alignment = Alignment.CenterHorizontally),
+                    tint = Color.White
                 )
 
                 Text(
                     textAlign = TextAlign.Center,
-                    text = "Pressure\n1010.0hpa",
+                    text = stringResource(R.string.humidity_text)+"\n"+baseBO.main.humidity.toString() + " hpa",
                     color = Color.White,
                     fontSize = 12.sp,
                     fontFamily = FontFamily.SansSerif
@@ -237,15 +272,19 @@ class FragmentWeather : Fragment() {
             }, modifier = Modifier
                 .constrainAs(button)
                 {
-                    top.linkTo(bottomOne.bottom, 10.dp)
+                    top.linkTo(bottomOne.bottom, 40.dp)
                 }
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(20.dp, 0.dp, 20.dp, 0.dp)
                 .background(color = Color.DarkGray)
-                .border(2.dp, color = Color.Red, shape = RoundedCornerShape(5.dp))) {
+                .border(
+                    2.dp,
+                    color = colorResource(R.color.gray_chateau),
+                    shape = RoundedCornerShape(5.dp)
+                )) {
                 Text(
-                    text = "See 5 days weather",
+                    text = "Explore More.",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Medium,
                     fontFamily = FontFamily.SansSerif,
@@ -274,6 +313,7 @@ class FragmentWeather : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { onSuccess, onError ->
                     if (onSuccess != null) {
+                        baseBO = onSuccess
                         composeView.apply {
                             setContent {
                                 mainContent()

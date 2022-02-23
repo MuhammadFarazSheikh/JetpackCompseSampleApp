@@ -8,5 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_chateau">#99a4aa</color>
-    <color name="cloud_burst">#1D3249</color>
+    <color name="light_blue_color">#234769</color>
+    <color name="dark_blue_color">#234769</color>
+    <color name="color_light_grey">#D3D3D3</color>
+    <color name="color_light_grey_1">#26D3D3D3</color>
+    <color name="light_slate_grey_color">#1B3248</color>
+    <color name="dark_slate_grey_color">#101E2C</color>
 </resources>

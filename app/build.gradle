@@ -102,4 +102,5 @@ dependencies {
     implementation("androidx.compose.material:material:1.0.5")
     implementation("androidx.compose.material:material-icons-core:1.0.5")
     implementation("androidx.compose.material:material-icons-extended:1.0.5")
+    implementation "com.github.skydoves:landscapist-glide:1.4.8"
 }

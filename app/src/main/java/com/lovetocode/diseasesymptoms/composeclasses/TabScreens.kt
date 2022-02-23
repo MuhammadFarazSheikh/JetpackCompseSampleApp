@@ -12,11 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 
-enum class TabPage(val icon:ImageVector)
+enum class TabPage()
 {
-    Home(Icons.Default.Home),
-    Favourite(Icons.Default.Favorite),
-    Messages(Icons.Default.Message)
+    FiveDays,
+    SearchWeather
 }
 
 @Composable
@@ -28,7 +27,6 @@ fun TabHome(selectedTabIndex:Int,onSelectedTabPage: (TabPage)->Unit)
                 selected = index == selectedTabIndex
                 , onClick = { onSelectedTabPage(tabPage) }
                 , text ={ Text(text = tabPage.name) }
-                , icon = { Icon(imageVector = tabPage.icon, contentDescription = "") }
             )
         }
     }

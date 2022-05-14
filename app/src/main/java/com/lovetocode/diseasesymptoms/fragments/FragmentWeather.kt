@@ -42,7 +42,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-@AndroidEntryPoint
 class FragmentWeather : Fragment() {
 
     private lateinit var baseBO: BaseBO
@@ -308,7 +307,7 @@ class FragmentWeather : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initInstances()
         compositeDisposable.add(
-            viewModel.getData("Pakistan")
+            viewModel.getCurrentWeather("Pakistan")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { onSuccess, onError ->

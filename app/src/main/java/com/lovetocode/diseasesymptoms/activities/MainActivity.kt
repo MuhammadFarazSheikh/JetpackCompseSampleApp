@@ -7,9 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.lovetocode.diseasesymptoms.R
 import com.lovetocode.diseasesymptoms.databinding.ActivityMainBinding
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityMainBinding

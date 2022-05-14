@@ -33,7 +33,7 @@ fun buildClient(): OkHttpClient {
     return okHttpClientBuilder.build()
 }
 
-fun buildRetrofit(baseUrl: String): Retrofit {
+fun buildRetrofit(baseUrl:String): Retrofit {
 
     return Retrofit.Builder()
         .client(buildClient())

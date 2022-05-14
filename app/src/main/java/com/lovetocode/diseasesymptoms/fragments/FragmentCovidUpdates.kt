@@ -23,7 +23,6 @@ import com.montymobile.callsignature.networking.Resource
 import com.montymobile.callsignature.utils.KeyUtils
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class FragmentCovidUpdates : Fragment(), Observer<Resource<ArrayList<CountryCovidUpdatesDAO>>> {
 
     val viewModel: CommonViewModel by viewModels()

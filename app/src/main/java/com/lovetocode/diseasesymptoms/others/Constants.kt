@@ -17,5 +17,9 @@ class Constants
         const val PACKAGE_NAME = "com.ofsol.weatheralerts"
         const val YOUTUBE_DATA_API_KEY = "AIzaSyCyluzK65PdShBk_Up9txEwTIt7It_-gUU"
         const val SHA_1 = "D8:C8:FD:5C:71:50:BF:A5:2F:8B:12:C0:A6:59:05:E8:DF:AB:88:08"
+        public var TIME_FORMAT_NEW_ONE = "hh:mm a"
+        public var TIME_FORMAT_OLD_ONE = "HH:mm:ss"
+        public var DATE_FORMAT_OLD_ONE = "yyyy-MM-dd"
+        public var DATE_FORMAT_NEW_ONE = "dd MMM yyyy"
     }
 }

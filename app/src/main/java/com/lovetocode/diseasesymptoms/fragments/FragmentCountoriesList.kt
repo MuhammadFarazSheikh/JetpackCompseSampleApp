@@ -12,16 +12,13 @@ import android.view.ViewGroup
 import com.lovetocode.diseasesymptoms.adapters.CountoriesListAdapter
 import com.lovetocode.diseasesymptoms.databinding.FragmentCountoriesListBinding
 import com.lovetocode.diseasesymptoms.utils.CommonUtils
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class FragmentCountoriesList : Fragment(),TextWatcher {
 
     private lateinit var mContext: Context
     private lateinit var array:List<String>
     private lateinit var binding:FragmentCountoriesListBinding
-    @Inject lateinit var countoriesListAdapter: CountoriesListAdapter
+    lateinit var countoriesListAdapter: CountoriesListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

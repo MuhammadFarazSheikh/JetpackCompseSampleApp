@@ -19,12 +19,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.lovetocode.diseasesymptoms.R
-import com.lovetocode.diseasesymptoms.fragments.FragmentOtherOptions
+import com.lovetocode.diseasesymptoms.fragments.FragmentExploreMore
 import com.lovetocode.diseasesymptoms.models.BaseBO
 import com.lovetocode.diseasesymptoms.others.Constants
 import com.lovetocode.diseasesymptoms.utils.DateTimeUtils
@@ -32,7 +31,7 @@ import com.lovetocode.diseasesymptoms.utils.TemperatureUtils
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun searchWeather(fragmentOtherOptions: FragmentOtherOptions, mutableState: MutableState<Any>) {
+fun searchWeather(fragmentExploreMore: FragmentExploreMore, mutableState: MutableState<Any>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -247,7 +246,7 @@ fun searchWeather(fragmentOtherOptions: FragmentOtherOptions, mutableState: Muta
 
         Button(
             onClick = {
-                fragmentOtherOptions.getWeatherDetails(textFieldWidget.value.text)
+                fragmentExploreMore.getWeatherDetails(textFieldWidget.value.text)
             },
             modifier = Modifier
                 .padding(20.dp, 20.dp, 20.dp, 0.dp)

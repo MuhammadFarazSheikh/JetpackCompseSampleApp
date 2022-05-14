@@ -3,20 +3,14 @@ package com.lovetocode.diseasesymptoms.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.lovetocode.diseasesymptoms.repositories.CommonRepositry
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-@HiltViewModel
-open class CommonViewModel @Inject constructor(
+class CommonViewModel(
     var commonRepositry: CommonRepositry
     ): ViewModel() {
     fun getCovidUpdatesByCountryName(name:String)= liveData{
         emit(commonRepositry.getCovidUpdatesByCountryName(name))
     }
 
-    fun getData(name:String)= commonRepositry.getData(name)
-
-    open fun data()=commonRepositry.data()
-    open fun dataState()=commonRepositry.dataState()
+    fun getCurrentWeather(name:String)= commonRepositry.getCurrentWeather(name)
+    fun getFiveDaysWeather(name:String)= commonRepositry.getFiveDaysWeather(name)
 }

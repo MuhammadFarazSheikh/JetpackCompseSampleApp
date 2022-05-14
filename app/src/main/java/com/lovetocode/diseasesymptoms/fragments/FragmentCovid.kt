@@ -20,28 +20,21 @@ import com.lovetocode.diseasesymptoms.interfaces.OnLocationSelected
 import com.lovetocode.diseasesymptoms.utils.*
 import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
 import com.montymobile.callsignature.networking.Resource
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class FragmentCovid : Fragment(), View.OnClickListener,OnLocationSelected {
 
     private lateinit var binding: FragmentCovidBinding
     private lateinit var mContext: Context
     val commonViewModel:CommonViewModel by viewModels()
 
-    @Inject
     lateinit var mostCommon: CovidDataAdapter
 
-    @Inject
     lateinit var lessCommon: CovidDataAdapter
 
-    @Inject
     lateinit var serious: CovidDataAdapter
 
-    @Inject
     lateinit var covidPreventions: CovidDataAdapter
 
     override fun onCreateView(

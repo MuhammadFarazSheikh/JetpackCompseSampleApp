@@ -9,11 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lovetocode.diseasesymptoms.R
 import com.lovetocode.diseasesymptoms.databinding.RowRecyclerCountoriesListBinding
 import com.montymobile.callsignature.utils.KeyUtils
-import dagger.hilt.android.scopes.FragmentScoped
-import javax.inject.Inject
 
-@FragmentScoped
-class CountoriesListAdapter @Inject constructor(): RecyclerView.Adapter<CountoriesListAdapter.DataViewHolder>(),
+class CountoriesListAdapter (): RecyclerView.Adapter<CountoriesListAdapter.DataViewHolder>(),
     View.OnClickListener
 {
     var list = arrayListOf<String>()

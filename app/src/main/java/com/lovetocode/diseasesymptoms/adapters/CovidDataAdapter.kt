@@ -4,11 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lovetocode.diseasesymptoms.databinding.RowRecyclerCovidDataBinding
-import dagger.hilt.android.scopes.FragmentScoped
-import javax.inject.Inject
 
-@FragmentScoped
-class CovidDataAdapter @Inject constructor(): RecyclerView.Adapter<CovidDataAdapter.DataViewHolder>()
+class CovidDataAdapter constructor(): RecyclerView.Adapter<CovidDataAdapter.DataViewHolder>()
 {
     var list = arrayListOf<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {

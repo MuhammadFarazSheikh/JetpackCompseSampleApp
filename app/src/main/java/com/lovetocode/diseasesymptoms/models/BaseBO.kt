@@ -5,11 +5,11 @@ import com.ofsol.weatheralerts.models.WeatherBO
 import java.util.*
 
 data class BaseBO(
-    val dt:String,
-    val main: MainBO,
-    val weather: ArrayList<WeatherBO>,
-    val clouds: CloudsBO,
-    val wind: WindBO,
-    val dt_txt: String,
-    val arrayList: ArrayList<BaseBO>
+    var dt:String,
+    var main: MainBO,
+    var weather: ArrayList<WeatherBO>,
+    var clouds: CloudsBO,
+    var wind: WindBO,
+    var dt_txt: String,
+    var arrayList: ArrayList<BaseBO>
 )

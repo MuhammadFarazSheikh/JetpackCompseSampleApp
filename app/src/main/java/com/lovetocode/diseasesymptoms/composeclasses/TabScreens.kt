@@ -10,18 +10,25 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Message
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.lovetocode.diseasesymptoms.R
 
 enum class TabPage()
 {
     FiveDays,
-    SearchWeather
+    SearchWeather,
+    YourLocation
 }
 
 @Composable
 fun TabHome(selectedTabIndex:Int,onSelectedTabPage: (TabPage)->Unit)
 {
-    TabRow(selectedTabIndex = selectedTabIndex) {
+    TabRow(selectedTabIndex = selectedTabIndex,
+        backgroundColor = colorResource(R.color.light_slate_grey_color)
+        , contentColor = Color.White) {
         TabPage.values().forEachIndexed { index, tabPage ->
             Tab(
                 selected = index == selectedTabIndex

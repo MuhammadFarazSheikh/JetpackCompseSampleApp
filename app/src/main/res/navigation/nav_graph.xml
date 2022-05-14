@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/otherOptionsFragment"
-        android:name="com.lovetocode.diseasesymptoms.fragments.FragmentOtherOptions"
+        android:name="com.lovetocode.diseasesymptoms.fragments.FragmentExploreMore"
         android:label="@string/text_other_options"
         tools:layout="@layout/fragment_other_options" />
 

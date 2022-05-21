@@ -57,9 +57,9 @@ class FragmentCovid : Fragment(), View.OnClickListener,OnLocationSelected {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initInstances()
-        populateSymptomsList()
-        setupListeners()
+        //initInstances()
+        //populateSymptomsList()
+        //setupListeners()
 
         binding.isShowData = false
 

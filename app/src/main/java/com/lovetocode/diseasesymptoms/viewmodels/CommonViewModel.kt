@@ -11,9 +11,6 @@ import javax.inject.Inject
 open class CommonViewModel @Inject constructor(
     var commonRepositry: CommonRepositry
     ): ViewModel() {
-    fun getCovidUpdatesByCountryName(name:String)= liveData{
-        emit(commonRepositry.getCovidUpdatesByCountryName(name))
-    }
 
     fun getData(name:String)= commonRepositry.getData(name)
 

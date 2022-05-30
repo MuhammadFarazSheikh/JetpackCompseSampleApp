@@ -1,42 +1,56 @@
 package com.lovetocode.diseasesymptoms.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.lovetocode.diseasesymptoms.R
-import com.lovetocode.diseasesymptoms.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.lovetocode.diseasesymptoms.composeclasses.userLogin
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding:ActivityMainBinding
-    private lateinit var navController:NavController
+    lateinit var navController:NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        setupBottomNavWithNavFragment()
+        ComposeView(this).apply {
+            setContent {
+                mainContent()
+            }
+        }
+    }
+    
+    @Composable
+    private fun content()
+    {
+        navController = rememberNavController()
+        NavHost(navController = navController, startDestination = "ToDoList")
+        {
+            composable("ToDoList"){
+                userLogin()
+            }
+        }
     }
 
-    /*SETUP BOTTOM NAVIGATION VIEW WITH NAVIGATION FRAGMENT*/
-    private fun setupBottomNavWithNavFragment()
+    @Preview
+    @Composable
+    fun mainContent()
     {
-        navController = (supportFragmentManager.
-        findFragmentById(R.id.nav_host_fragment) as NavHostFragment).
-        navController
-
-        binding.
-        botttomNavigationView.
-        setupWithNavController(navController)
-    }
-
-    public fun getNavController():NavController
-    {
-        return navController
+        Scaffold(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()) {
+            content()
+        }
     }
 }

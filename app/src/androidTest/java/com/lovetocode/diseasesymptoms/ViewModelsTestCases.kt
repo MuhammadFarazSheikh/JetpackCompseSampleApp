@@ -9,7 +9,6 @@ import com.lovetocode.diseasesymptoms.repositories.CommonRepositry
 import com.lovetocode.diseasesymptoms.utils.getOrWaitData
 import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
 import com.montymobile.callsignature.networking.Resource
-import com.montymobile.callsignature.networking.buildApiServiceForCovidUpdates
 import com.montymobile.callsignature.networking.buildApiServiceForWeatherUpdates
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -43,14 +42,12 @@ class ViewModelsTestCases {
     @Before
     fun init() {
         MockitoAnnotations.openMocks(this)
-        commonRepositry.apiInterfaceCovidUpdates = buildApiServiceForCovidUpdates()
         commonViewModel = CommonViewModel(commonRepositry)
     }
 
     @Test
     fun check_api_response() {
-        commonViewModel
-            .getCovidUpdatesByCountryName("Pakistan")
+        /*commonViewModel
             .getOrWaitData()
             .let {
                 when(it)
@@ -65,7 +62,7 @@ class ViewModelsTestCases {
                     {
                     }
                 }
-            }
+            }*/
         //commonViewModel.dataState()
         //Mockito.verify(commonRepositry,times(2)).data()
         //Mockito.verify(commonRepositry, atLeast(1)).data()

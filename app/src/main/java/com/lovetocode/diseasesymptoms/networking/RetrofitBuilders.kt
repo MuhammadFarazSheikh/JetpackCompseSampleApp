@@ -13,7 +13,6 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.jvm.Throws
 
-public const val BASE_URL: String = "https://covid-19-data.p.rapidapi.com/"
 public const val BASE_URL_WEATHER: String = "http://api.openweathermap.org/data/2.5/"
 
 fun buildClient(): OkHttpClient {
@@ -44,5 +43,4 @@ fun buildRetrofit(baseUrl: String): Retrofit {
         .build()
 }
 
-fun buildApiServiceForCovidUpdates(): ApiInterface = buildRetrofit(BASE_URL).create(ApiInterface::class.java)
 fun buildApiServiceForWeatherUpdates(): ApiInterface = buildRetrofit(BASE_URL_WEATHER).create(ApiInterface::class.java)

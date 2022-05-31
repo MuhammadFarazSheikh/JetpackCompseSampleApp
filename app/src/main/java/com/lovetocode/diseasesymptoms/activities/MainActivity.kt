@@ -4,7 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.DrawerState
+import androidx.compose.material.DrawerValue
 import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -40,6 +43,10 @@ class MainActivity : AppCompatActivity() {
             composable("ToDoList"){
                 userLogin()
             }
+
+            composable("Weather"){
+                userLogin()
+            }
         }
     }
 
@@ -47,10 +54,13 @@ class MainActivity : AppCompatActivity() {
     @Composable
     fun mainContent()
     {
-        Scaffold(modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()) {
-            content()
+        var scaffoldState = rememberScaffoldState(drawerState = DrawerState(DrawerValue.Closed))
+        Scaffold(
+            scaffoldState = scaffoldState,
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()) {
+            userLogin()
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.lovetocode.diseasesymptoms.hilt
 
-import com.montymobile.callsignature.networking.buildApiServiceForCovidUpdates
 import com.montymobile.callsignature.networking.buildApiServiceForWeatherUpdates
 import dagger.Module
 import dagger.Provides
@@ -12,11 +11,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitInstanceModule
 {
-    @CovidUpdatesBaseUrl
-    @Singleton
-    @Provides
-    fun getRetrofitInstanceCovidUpdates()= buildApiServiceForCovidUpdates()
-
     @WeatherUpdatesBaseUrl
     @Singleton
     @Provides

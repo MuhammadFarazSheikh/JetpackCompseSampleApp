@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -27,11 +28,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ComposeView(this).apply {
+        setContentView(ComposeView(this).apply {
             setContent {
                 mainContent()
             }
-        }
+        })
     }
     
     @Composable
@@ -41,10 +42,6 @@ class MainActivity : AppCompatActivity() {
         NavHost(navController = navController, startDestination = "ToDoList")
         {
             composable("ToDoList"){
-                userLogin()
-            }
-
-            composable("Weather"){
                 userLogin()
             }
         }
@@ -60,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()) {
-            userLogin()
+            content()
         }
     }
 }

@@ -17,6 +17,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.lovetocode.diseasesymptoms.composeclasses.userData
 import com.lovetocode.diseasesymptoms.composeclasses.userLogin
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,10 +40,14 @@ class MainActivity : AppCompatActivity() {
     private fun content()
     {
         navController = rememberNavController()
-        NavHost(navController = navController, startDestination = "ToDoList")
+        NavHost(navController = navController, startDestination = "ToDoList/{args}")
         {
-            composable("ToDoList"){
-                userLogin()
+            composable("ToDoList/{args}"){
+                userLogin(navController)
+            }
+
+            composable("userData/{args}"){
+                userData(it.arguments?.getString("args")!!)
             }
         }
     }

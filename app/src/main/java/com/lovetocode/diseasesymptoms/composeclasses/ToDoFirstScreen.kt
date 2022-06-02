@@ -26,13 +26,12 @@ import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun userLogin(navHostController: NavHostController)
+fun userLogin()
 {
     ConstraintLayout(modifier = Modifier
         .fillMaxWidth()
         .fillMaxHeight()) {
         TextButton(onClick = {
-            navHostController.navigate("userData/arguments")
                              },
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +45,7 @@ fun userLogin(navHostController: NavHostController)
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun userData(args:String)
+fun userData()
 {
     ConstraintLayout(modifier = Modifier
         .fillMaxWidth()
@@ -57,7 +56,7 @@ fun userData(args:String)
                 .wrapContentHeight(),
 
             ) {
-            Text(text = args)
+            Text("second")
         }
     }
 }

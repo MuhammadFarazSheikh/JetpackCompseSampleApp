@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 userLogin()
             }
 
-            composable("userData"){
+            composable("WeatherInfo"){
                 userData()
             }
         }
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             items.forEach { screens->
                 BottomNavigationItem(
                     icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
-                    label = { Text(stringResource(screens.icon)) },
+                    label = { Text(screens.title) },
                     selected = currentDestination?.hierarchy?.any { it.route == screens.screen_route } == true,
                     onClick = {
                         navController.navigate(screens.screen_route) {

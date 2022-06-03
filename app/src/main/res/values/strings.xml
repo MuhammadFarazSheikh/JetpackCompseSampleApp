@@ -35,6 +35,7 @@
     <string name="pressure_text">Pressure</string>
     <string name="humidity_text">Humidity</string>
     <string name="txt_search">Search</string>
+    <string name="add_your_todo_note">Add Your ToDo Note</string>
 
     <string-array name="most_common_symtoms">
         <item>Fever</item>

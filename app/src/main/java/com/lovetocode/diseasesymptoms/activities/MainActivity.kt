@@ -6,24 +6,21 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.lovetocode.diseasesymptoms.composeclasses.userData
-import com.lovetocode.diseasesymptoms.composeclasses.userLogin
+import com.lovetocode.diseasesymptoms.composeclasses.userToDOAdd
+import com.lovetocode.diseasesymptoms.composeclasses.weatherData
 import com.lovetocode.diseasesymptoms.models.BottomNavItem
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,11 +45,11 @@ class MainActivity : AppCompatActivity() {
         NavHost(navController = navController, startDestination = "ToDoList")
         {
             composable("ToDoList"){
-                userLogin()
+                userToDOAdd()
             }
 
             composable("WeatherInfo"){
-                userData()
+                weatherData()
             }
         }
     }
@@ -70,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             var currentDestination = navBackStackEntry?.destination
             items.forEach { screens->
                 BottomNavigationItem(
-                    icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
+                    icon = { Icon(painterResource(id = screens.icon), contentDescription = null) },
                     label = { Text(screens.title) },
                     selected = currentDestination?.hierarchy?.any { it.route == screens.screen_route } == true,
                     onClick = {

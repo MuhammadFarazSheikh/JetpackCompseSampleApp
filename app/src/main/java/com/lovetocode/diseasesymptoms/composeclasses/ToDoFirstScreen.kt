@@ -17,6 +17,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -34,7 +35,6 @@ import com.google.firebase.ktx.Firebase
 import com.lovetocode.diseasesymptoms.R
 
 @OptIn(ExperimentalComposeUiApi::class)
-@Preview
 @Composable
 fun userToDOAdd()
 {
@@ -164,13 +164,12 @@ fun openAlertDialogue()
     AlertDialog(onDismissRequest = {
 
     }, confirmButton = {
-
     }, dismissButton = {
 
     }, title = {
-
+        Text(text = stringResource( R.string.text_success))
     }, text = {
-
+        Text(text = stringResource( R.string.note_added))
     })
 }
 

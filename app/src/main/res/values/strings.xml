@@ -37,6 +37,8 @@
     <string name="txt_search">Search</string>
     <string name="add_your_todo_note">Add Your ToDo Note</string>
     <string name="add_text">Add ToDo Note</string>
+    <string name="note_added">Note added.</string>
+    <string name="text_success">Success</string>
 
     <string-array name="most_common_symtoms">
         <item>Fever</item>

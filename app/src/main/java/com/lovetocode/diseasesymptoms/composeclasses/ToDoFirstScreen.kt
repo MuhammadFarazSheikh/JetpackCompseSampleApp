@@ -7,10 +7,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -152,7 +149,6 @@ fun storeNoteData(contact:String,noteData:String,context: Context)
         .collection(contact)
         .add(mapOf<String,String>("userNote" to noteData))
         .addOnSuccessListener {
-            Toast.makeText(context,"data saved",Toast.LENGTH_SHORT).show()
         }
         .addOnFailureListener {
         }
@@ -160,6 +156,22 @@ fun storeNoteData(contact:String,noteData:String,context: Context)
         }
         .addOnCompleteListener {
         }
+}
+
+@Composable
+fun openAlertDialogue()
+{
+    AlertDialog(onDismissRequest = {
+
+    }, confirmButton = {
+
+    }, dismissButton = {
+
+    }, title = {
+
+    }, text = {
+
+    })
 }
 
 @OptIn(ExperimentalComposeUiApi::class)

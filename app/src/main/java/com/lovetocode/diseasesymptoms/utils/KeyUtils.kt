@@ -8,5 +8,6 @@ class KeyUtils
         const val DATA_STORE_NAME="DATA_STORE_NAME"
         const val LATITUDE="LATITUDE"
         const val LONGITUDE="LONGITUDE"
+        const val TODO_NOTES="ToDoNotes"
     }
 }

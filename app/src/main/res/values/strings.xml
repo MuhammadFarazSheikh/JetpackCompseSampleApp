@@ -39,6 +39,7 @@
     <string name="add_text">Add ToDo Note</string>
     <string name="note_added">Note added.</string>
     <string name="text_success">Success</string>
+    <string name="go_to_todo_details">Open todo details</string>
 
     <string-array name="most_common_symtoms">
         <item>Fever</item>

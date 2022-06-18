@@ -33,8 +33,10 @@ import androidx.navigation.NavHostController
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lovetocode.diseasesymptoms.R
+import com.montymobile.callsignature.utils.KeyUtils
 
 @OptIn(ExperimentalComposeUiApi::class)
+@Preview
 @Composable
 fun userToDOAdd()
 {
@@ -44,7 +46,7 @@ fun userToDOAdd()
         .fillMaxHeight()
         .padding(15.dp)
     ) {
-        val (todoListLable,phoneNumberFeild,todoNoteField,addTOdOnOTeButton) = createRefs()
+        val (todoListLable,phoneNumberFeild,todoNoteField,addTOdOnOTeButton,todoNotesDetails) = createRefs()
         Text(
             text = stringResource(id = R.string.add_your_todo_note),
             modifier = Modifier
@@ -120,6 +122,21 @@ fun userToDOAdd()
                 color = Color.White
             )
         }
+
+        Button(onClick = { /*TODO*/ }
+        , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .constrainAs(todoNotesDetails) {
+                top.linkTo(addTOdOnOTeButton.bottom, 10.dp)
+            }) {
+            Text(text = stringResource(id = R.string.go_to_todo_details)
+                , color = Color.White
+                , fontSize = 15.sp
+                , fontWeight = FontWeight.SemiBold
+            )
+        }
     }
 }
 
@@ -144,8 +161,9 @@ fun storeNoteData(contact:String,noteData:String,context: Context)
 {
     Firebase
         .firestore
-        .collection(contact)
-        .add(mapOf<String,String>("userNote" to noteData))
+        .collection(KeyUtils.TODO_NOTES)
+        .document(contact)
+        .set(mapOf<String,String>("userNote" to noteData))
         .addOnSuccessListener {
             Toast.makeText(context, context.getString(R.string.note_added),Toast.LENGTH_SHORT).show()
         }
@@ -158,22 +176,4 @@ fun storeNoteData(contact:String,noteData:String,context: Context)
         .addOnCompleteListener {
             Toast.makeText(context, "Note add completed",Toast.LENGTH_SHORT).show()
         }
-}
-
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-fun weatherData()
-{
-    ConstraintLayout(modifier = Modifier
-        .fillMaxWidth()
-        .fillMaxHeight()) {
-        TextButton(onClick = { /*TODO*/ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-
-            ) {
-            Text("second")
-        }
-    }
 }

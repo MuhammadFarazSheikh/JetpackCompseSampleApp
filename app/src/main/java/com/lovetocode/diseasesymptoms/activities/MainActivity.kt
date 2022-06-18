@@ -1,6 +1,7 @@
 package com.lovetocode.diseasesymptoms.activities
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,11 +33,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(ComposeView(this).apply {
-            setContent {
-                mainContent()
-            }
-        })
+        setContent {
+            mainContent()
+        }
     }
     
     @Composable

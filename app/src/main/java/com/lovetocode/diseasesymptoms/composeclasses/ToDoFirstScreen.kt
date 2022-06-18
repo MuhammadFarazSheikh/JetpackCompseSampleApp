@@ -103,8 +103,6 @@ fun userToDOAdd()
         Button(onClick = {
             if(verifyData(contactTextField,todoNoteTextField,context)) {
                 storeNoteData(contactTextField, todoNoteTextField, context)
-                contactTextField = ""
-                todoNoteTextField = ""
             }
                          },
             modifier = Modifier
@@ -149,28 +147,17 @@ fun storeNoteData(contact:String,noteData:String,context: Context)
         .collection(contact)
         .add(mapOf<String,String>("userNote" to noteData))
         .addOnSuccessListener {
+            Toast.makeText(context, context.getString(R.string.note_added),Toast.LENGTH_SHORT).show()
         }
         .addOnFailureListener {
+            Toast.makeText(context, "Note not added",Toast.LENGTH_SHORT).show()
         }
         .addOnCanceledListener {
+            Toast.makeText(context, "Cancelled",Toast.LENGTH_SHORT).show()
         }
         .addOnCompleteListener {
+            Toast.makeText(context, "Note add completed",Toast.LENGTH_SHORT).show()
         }
-}
-
-@Composable
-fun openAlertDialogue()
-{
-    AlertDialog(onDismissRequest = {
-
-    }, confirmButton = {
-    }, dismissButton = {
-
-    }, title = {
-        Text(text = stringResource( R.string.text_success))
-    }, text = {
-        Text(text = stringResource( R.string.note_added))
-    })
 }
 
 @OptIn(ExperimentalComposeUiApi::class)

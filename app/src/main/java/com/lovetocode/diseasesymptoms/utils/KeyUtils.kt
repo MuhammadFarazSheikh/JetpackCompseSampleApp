@@ -9,5 +9,6 @@ class KeyUtils
         const val LATITUDE="LATITUDE"
         const val LONGITUDE="LONGITUDE"
         const val TODO_NOTES="ToDoNotes"
+        const val USER_NOTE="userNote"
     }
 }

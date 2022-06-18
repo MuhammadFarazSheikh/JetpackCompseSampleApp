@@ -1,6 +1,7 @@
 package com.lovetocode.diseasesymptoms.composeclasses
 
 import android.content.Context
+import android.content.Intent
 import android.text.TextUtils
 import android.widget.Toast
 import androidx.compose.foundation.*
@@ -33,6 +34,7 @@ import androidx.navigation.NavHostController
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lovetocode.diseasesymptoms.R
+import com.lovetocode.diseasesymptoms.activities.ToDoNoteDetailsActivity
 import com.montymobile.callsignature.utils.KeyUtils
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -123,7 +125,9 @@ fun userToDOAdd()
             )
         }
 
-        Button(onClick = { /*TODO*/ }
+        Button(onClick = {
+                         context.startActivity(Intent(context,ToDoNoteDetailsActivity::class.java))
+        }
         , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
         modifier = Modifier
             .fillMaxWidth()

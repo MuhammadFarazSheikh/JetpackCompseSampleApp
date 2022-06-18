@@ -20,7 +20,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.lovetocode.diseasesymptoms.composeclasses.toDoNotesDetails
 import com.lovetocode.diseasesymptoms.composeclasses.userToDOAdd
 import com.lovetocode.diseasesymptoms.composeclasses.weatherData
 import com.lovetocode.diseasesymptoms.models.BottomNavItem
@@ -50,10 +49,6 @@ class MainActivity : AppCompatActivity() {
 
             composable("WeatherInfo"){
                 weatherData()
-            }
-
-            composable("ToDoNotesDetails"){
-                toDoNotesDetails()
             }
         }
     }

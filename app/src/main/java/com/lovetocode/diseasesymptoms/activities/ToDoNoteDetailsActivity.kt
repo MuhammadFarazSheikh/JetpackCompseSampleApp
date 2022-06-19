@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lovetocode.diseasesymptoms.models.ToDoNotesBO
-import com.lovetocode.diseasesymptoms.utils.openAlertDialogue
 import com.montymobile.callsignature.utils.KeyUtils
 
 class ToDoNoteDetailsActivity : AppCompatActivity() {

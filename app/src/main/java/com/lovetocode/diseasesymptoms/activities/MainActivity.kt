@@ -2,6 +2,7 @@ package com.lovetocode.diseasesymptoms.activities
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -22,16 +24,29 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.lovetocode.diseasesymptoms.composeclasses.userToDOAdd
 import com.lovetocode.diseasesymptoms.composeclasses.weatherData
+import com.lovetocode.diseasesymptoms.models.BaseBO
 import com.lovetocode.diseasesymptoms.models.BottomNavItem
+import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
+import com.lovetocode.diseasesymptoms.viewmodels.RoomDBViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var baseBO: BaseBO
+    val viewModel: CommonViewModel by viewModels()
+    private lateinit var compositeDisposable: CompositeDisposable
+    val roomDBViewModel: RoomDBViewModel by viewModels()
     lateinit var navController:NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initInstances()
+        getWeatherData()
 
         setContent {
             mainContent()
@@ -44,11 +59,11 @@ class MainActivity : AppCompatActivity() {
         NavHost(navController = navController, startDestination = "ToDoList")
         {
             composable("ToDoList"){
-                userToDOAdd()
+                userToDOAdd(roomDBViewModel)
             }
 
             composable("WeatherInfo"){
-                weatherData()
+                weatherData(baseBO)
             }
         }
     }
@@ -89,6 +104,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getWeatherData()
+    {
+        compositeDisposable.add(
+            viewModel.getData("Pakistan")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { onSuccess, onError ->
+                    if (onSuccess != null) {
+                        baseBO = onSuccess
+                    }
+                    if (onError != null) {
+
+                    }
+                }
+        )
+    }
+
     @Preview
     @Composable
     fun mainContent()
@@ -104,5 +136,18 @@ class MainActivity : AppCompatActivity() {
             }) {
             content()
         }
+    }
+
+    private fun initInstances() {
+        compositeDisposable = CompositeDisposable()
+    }
+
+    override fun onDestroy() {
+
+        if (::compositeDisposable.isInitialized) {
+            compositeDisposable.dispose()
+        }
+
+        super.onDestroy()
     }
 }

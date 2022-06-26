@@ -2,7 +2,6 @@ package com.lovetocode.diseasesymptoms.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Divider
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,12 +22,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.lovetocode.diseasesymptoms.models.ToDoNotesBO
+import com.lovetocode.diseasesymptoms.models.ToDoNotesDTO
 import com.montymobile.callsignature.utils.KeyUtils
 
 class ToDoNoteDetailsActivity : AppCompatActivity() {
 
-    private lateinit var userNotesList:ArrayList<ToDoNotesBO>
+    private lateinit var userNotesList:ArrayList<ToDoNotesDTO>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +46,7 @@ class ToDoNoteDetailsActivity : AppCompatActivity() {
                 if(!todoNotesData.isEmpty)
                 {
                     todoNotesData.documents.forEach { todoNoteContact->
-                        userNotesList.add(ToDoNotesBO(todoNoteContact.id,todoNoteContact.data?.get(KeyUtils.USER_NOTE).toString()))
+                        userNotesList.add(ToDoNotesDTO(0,todoNoteContact.id,todoNoteContact.data?.get(KeyUtils.USER_NOTE).toString()))
                     }
                 }
                 setContent {
@@ -77,7 +75,7 @@ class ToDoNoteDetailsActivity : AppCompatActivity() {
             items(userNotesList.size)
             { data->
                 ClickableText(
-                    text = AnnotatedString(userNotesList.get(data).number),
+                    text = AnnotatedString(userNotesList.get(data).phoneNumber),
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()

@@ -1,6 +1,5 @@
 package com.lovetocode.diseasesymptoms.repositories
 
-import com.lovetocode.diseasesymptoms.hilt.WeatherUpdatesBaseUrl
 import com.montymobile.callsignature.networking.ApiEndPoints
 import com.montymobile.callsignature.repositories.BaseRepository
 import com.montymobile.interfaces.ApiInterface
@@ -8,7 +7,7 @@ import javax.inject.Inject
 
 
 open class CommonRepositry @Inject constructor(
-    @WeatherUpdatesBaseUrl var apiInterfaceWeatherUpdates: ApiInterface
+    var apiInterfaceWeatherUpdates: ApiInterface
     ): BaseRepository() {
 
     fun getData(name:String)=apiInterfaceWeatherUpdates.getData(ApiEndPoints.SEARCH_WEATHER_BY_NAME+name+ ApiEndPoints.WEATHER_API_APP_ID)

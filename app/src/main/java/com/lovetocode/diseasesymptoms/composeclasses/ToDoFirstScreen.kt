@@ -8,11 +8,13 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -24,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,14 +38,27 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lovetocode.diseasesymptoms.R
 import com.lovetocode.diseasesymptoms.activities.ToDoNoteDetailsActivity
+import com.lovetocode.diseasesymptoms.models.ToDoNotesDTO
+import com.lovetocode.diseasesymptoms.viewmodels.RoomDBViewModel
 import com.montymobile.callsignature.utils.KeyUtils
 
 @OptIn(ExperimentalComposeUiApi::class)
-@Preview
 @Composable
-fun userToDOAdd()
+fun userToDOAdd(roomDBViewModel: RoomDBViewModel)
 {
     val context = LocalContext.current
+    var roomDVState by remember { mutableStateOf(false)}
+    if(roomDVState)
+    {
+        roomDBViewModel.getNotes().observeAsState().let {
+            if(!it.value.isNullOrEmpty())
+            {
+                Toast.makeText(context,"Data in db",Toast.LENGTH_SHORT).show()
+                roomDVState = false
+            }
+        }
+    }
+
     ConstraintLayout(modifier = Modifier
         .fillMaxWidth()
         .fillMaxHeight()
@@ -83,7 +99,8 @@ fun userToDOAdd()
                 .padding(10.dp)
                 .constrainAs(phoneNumberFeild) {
                     top.linkTo(todoListLable.bottom, 20.dp)
-                })
+                }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        )
 
         BasicTextField(
             textStyle = TextStyle(color = Color.Black,
@@ -106,7 +123,8 @@ fun userToDOAdd()
 
         Button(onClick = {
             if(verifyData(contactTextField,todoNoteTextField,context)) {
-                storeNoteData(contactTextField, todoNoteTextField, context)
+                roomDBViewModel.saveNotes(ToDoNotesDTO(0,contactTextField,todoNoteTextField))
+                roomDVState = true
             }
                          },
             modifier = Modifier
@@ -160,10 +178,9 @@ fun verifyData(contact: String,noteData: String,context: Context):Boolean
 
     return check
 }
-
-fun storeNoteData(contact:String,noteData:String,context: Context)
+fun storeNoteData(contact:String,noteData:String,context: Context,roomDBViewModel: RoomDBViewModel)
 {
-    Firebase
+    /*Firebase
         .firestore
         .collection(KeyUtils.TODO_NOTES)
         .document(contact)
@@ -179,5 +196,5 @@ fun storeNoteData(contact:String,noteData:String,context: Context)
         }
         .addOnCompleteListener {
             Toast.makeText(context, "Note add completed",Toast.LENGTH_SHORT).show()
-        }
+        }*/
 }

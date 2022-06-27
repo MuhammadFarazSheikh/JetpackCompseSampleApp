@@ -6,14 +6,17 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -74,9 +77,10 @@ class MainActivity : AppCompatActivity() {
             BottomNavItem.Home,
             BottomNavItem.MyNetwork,
         )
-        BottomNavigation(modifier = Modifier
+        BottomNavigation(backgroundColor = Color.White, modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()) {
+            .wrapContentHeight()
+        ) {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             var currentDestination = navBackStackEntry?.destination
             items.forEach { screens->

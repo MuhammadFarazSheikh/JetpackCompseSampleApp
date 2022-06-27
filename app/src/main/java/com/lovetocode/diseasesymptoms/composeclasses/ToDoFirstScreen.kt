@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -60,6 +61,7 @@ fun userToDOAdd(roomDBViewModel: RoomDBViewModel)
     }
 
     ConstraintLayout(modifier = Modifier
+        .background(color = colorResource(R.color.light_slate_grey_color))
         .fillMaxWidth()
         .fillMaxHeight()
         .padding(15.dp)
@@ -73,7 +75,7 @@ fun userToDOAdd(roomDBViewModel: RoomDBViewModel)
                 .constrainAs(todoListLable) {
                     top.linkTo(parent.top, 15.dp)
                 },
-            color = Color.Black,
+            color = Color.White,
             textAlign = TextAlign.Center,
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold
@@ -83,7 +85,7 @@ fun userToDOAdd(roomDBViewModel: RoomDBViewModel)
         var todoNoteTextField by remember{ mutableStateOf("")}
 
         BasicTextField(
-            textStyle = TextStyle(color = Color.Black,
+            textStyle = TextStyle(color = Color.White,
                 fontSize = 12.sp
             ),
             value = contactTextField,
@@ -93,7 +95,7 @@ fun userToDOAdd(roomDBViewModel: RoomDBViewModel)
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .border(
-                    border = BorderStroke(2.dp, color = Color.Black),
+                    border = BorderStroke(2.dp, color = Color.White),
                     shape = RoundedCornerShape(5.dp)
                 )
                 .padding(10.dp)
@@ -103,7 +105,7 @@ fun userToDOAdd(roomDBViewModel: RoomDBViewModel)
         )
 
         BasicTextField(
-            textStyle = TextStyle(color = Color.Black,
+            textStyle = TextStyle(color = Color.White,
                 fontSize = 12.sp
             ),
             value = todoNoteTextField,
@@ -113,7 +115,7 @@ fun userToDOAdd(roomDBViewModel: RoomDBViewModel)
                 .fillMaxWidth()
                 .height(150.dp)
                 .border(
-                    border = BorderStroke(2.dp, color = Color.Black),
+                    border = BorderStroke(2.dp, color = Color.White),
                     shape = RoundedCornerShape(5.dp)
                 )
                 .padding(10.dp)

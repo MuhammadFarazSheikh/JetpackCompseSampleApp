@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     @Composable
     private fun content()
     {
+
         NavHost(navController = navController, startDestination = "ToDoList")
         {
             composable("ToDoList"){

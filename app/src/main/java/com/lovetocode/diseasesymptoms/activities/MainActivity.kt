@@ -77,6 +77,9 @@ class MainActivity : AppCompatActivity() {
             BottomNavItem.Home,
             BottomNavItem.MyNetwork,
         )
+
+
+
         BottomNavigation(backgroundColor = Color.White, modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()

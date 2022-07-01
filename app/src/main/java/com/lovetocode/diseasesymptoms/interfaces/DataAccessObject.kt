@@ -1,5 +1,6 @@
 package com.lovetocode.diseasesymptoms.interfaces
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -13,4 +14,7 @@ interface DataAccessObject
 
     @Insert
     suspend fun saveToDoNotes(toDoNotesDTO: ToDoNotesDTO)
+
+    @Query("SELECT * FROM ToDoNotesDTO")
+    fun getNotesDataWithPager():DataSource.Factory<Int,ToDoNotesDTO>
 }

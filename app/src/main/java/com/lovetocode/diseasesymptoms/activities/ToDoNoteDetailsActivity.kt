@@ -3,6 +3,7 @@ package com.lovetocode.diseasesymptoms.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,11 +24,15 @@ import androidx.compose.ui.unit.sp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lovetocode.diseasesymptoms.models.ToDoNotesDTO
+import com.lovetocode.diseasesymptoms.viewmodels.RoomDBViewModel
 import com.montymobile.callsignature.utils.KeyUtils
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ToDoNoteDetailsActivity : AppCompatActivity() {
 
     private lateinit var userNotesList:ArrayList<ToDoNotesDTO>
+    val roomDBViewModel:RoomDBViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +43,16 @@ class ToDoNoteDetailsActivity : AppCompatActivity() {
 
     private fun getNotesData()
     {
-        Firebase
+        roomDBViewModel.getNotesWithPaging().observe(this)
+        { pagedToDoNotes->
+            pagedToDoNotes.forEach { toDoNotesDTO ->
+                userNotesList.add(ToDoNotesDTO(toDoNotesDTO.id,toDoNotesDTO.phoneNumber,toDoNotesDTO.noteText))
+            }
+            setContent {
+                toDoNoteDetails()
+            }
+        }
+        /*Firebase
             .firestore
             .collection(KeyUtils.TODO_NOTES)
             .get()
@@ -61,7 +75,7 @@ class ToDoNoteDetailsActivity : AppCompatActivity() {
             }
             .addOnFailureListener {
 
-            }
+            }*/
     }
 
     @Preview

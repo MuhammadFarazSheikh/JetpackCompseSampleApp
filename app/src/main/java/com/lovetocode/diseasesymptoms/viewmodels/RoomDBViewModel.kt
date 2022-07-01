@@ -27,4 +27,6 @@ class RoomDBViewModel @Inject constructor(context:Application): AndroidViewModel
     fun getNotes()= liveData{
         emit(toDoNotesRepository.getNotes())
     }
+
+    fun getNotesWithPaging()=toDoNotesRepository.getNotesWithPager()
 }

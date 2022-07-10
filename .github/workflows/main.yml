@@ -71,6 +71,9 @@ jobs:
           gradlePath: app/build.gradle
           versionCode: ${{ env.version_code }}
 
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
       - name: Build & deploy Android release
         run: bundle exec fastlane android deploy
         env:

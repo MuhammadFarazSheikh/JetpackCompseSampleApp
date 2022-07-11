@@ -1,2 +1,1 @@
-json_key_file("D:/Cloned/CovidAnd-WeatherUpdates/play_store_app_dist.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
 package_name("com.lovetocode.diseasesymptoms") # e.g. com.krausefx.app

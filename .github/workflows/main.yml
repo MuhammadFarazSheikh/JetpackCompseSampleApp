@@ -77,11 +77,11 @@ jobs:
       - name: Build & deploy Android release
         run: bundle exec fastlane android deploy
         env:
-          KEYSTORE_FILE: ${{ steps.android_keystore.outputs.filePath }}
+          KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS}}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          ANDROID_JSON_KEY_FILE: ${{ steps.service_account_json_file.outputs.filePath }}
+          ANDROID_JSON_KEY_FILE: ${{ secrets.GPLAY_SERVICE_ACCOUNT_KEY_JSON }}
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2

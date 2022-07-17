@@ -2,21 +2,21 @@ package com.lovetocode.diseasesymptoms.repositories
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
-import androidx.paging.toLiveData
+import androidx.paging.*
 import androidx.room.Room
 import com.lovetocode.diseasesymptoms.models.ToDoNotesDTO
+import com.lovetocode.diseasesymptoms.pagination.NotesPagingSource
 import com.lovetocode.diseasesymptoms.room.RoomDB
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import java.util.concurrent.Flow
 import javax.inject.Inject
 
 class ToDoNotesRepository @Inject constructor(@ApplicationContext context: Context)
 {
-    private lateinit var roomDB: RoomDB
-    private lateinit var toDoNotesDTO:LiveData<PagedList<ToDoNotesDTO>>
+    lateinit var roomDB: RoomDB
     init {
         roomDB = Room.databaseBuilder(context,RoomDB::class.java,"DB").build()
-        toDoNotesDTO = roomDB.getDBInstance().getNotesDataWithPager().toLiveData(40)
     }
     suspend fun saveNotes(toDoNotesDTO: ToDoNotesDTO)
     {
@@ -28,8 +28,10 @@ class ToDoNotesRepository @Inject constructor(@ApplicationContext context: Conte
         return roomDB.getDBInstance().getNotesData()
     }
 
-    fun getNotesWithPager():LiveData<PagedList<ToDoNotesDTO>>
+    /*fun getNotesWithPager(viewModelScope:CoroutineScope):Flow<PagingData<ToDoNotesDTO>>
     {
-        return toDoNotesDTO
-    }
+
+
+        return data
+    }*/
 }

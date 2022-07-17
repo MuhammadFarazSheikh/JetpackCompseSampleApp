@@ -15,6 +15,6 @@ interface DataAccessObject
     @Insert
     suspend fun saveToDoNotes(toDoNotesDTO: ToDoNotesDTO)
 
-    @Query("SELECT * FROM ToDoNotesDTO")
-    fun getNotesDataWithPager():DataSource.Factory<Int,ToDoNotesDTO>
+    @Query("SELECT * FROM TODONOTESDTO ORDER BY id ASC LIMIT :limit OFFSET :offset")
+    fun getNotesDataWithPager(limit: Int, offset: Int):List<ToDoNotesDTO>
 }

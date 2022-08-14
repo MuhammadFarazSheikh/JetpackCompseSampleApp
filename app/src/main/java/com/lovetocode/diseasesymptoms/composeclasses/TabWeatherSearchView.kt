@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.lovetocode.diseasesymptoms.R
-import com.lovetocode.diseasesymptoms.fragments.FragmentOtherOptions
+import com.lovetocode.diseasesymptoms.activities.OtherWeatherOptionsActivity
 import com.lovetocode.diseasesymptoms.models.BaseBO
 import com.lovetocode.diseasesymptoms.others.Constants
 import com.lovetocode.diseasesymptoms.utils.DateTimeUtils
@@ -32,7 +32,7 @@ import com.lovetocode.diseasesymptoms.utils.TemperatureUtils
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun searchWeather(fragmentOtherOptions: FragmentOtherOptions, mutableState: MutableState<Any>) {
+fun searchWeather(otherWeatherOptionsActivity: OtherWeatherOptionsActivity, mutableState: MutableState<Any>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -247,7 +247,7 @@ fun searchWeather(fragmentOtherOptions: FragmentOtherOptions, mutableState: Muta
 
         Button(
             onClick = {
-                fragmentOtherOptions.getWeatherDetails(textFieldWidget.value.text)
+                otherWeatherOptionsActivity.getWeatherDetails(textFieldWidget.value.text)
             },
             modifier = Modifier
                 .padding(20.dp, 20.dp, 20.dp, 0.dp)

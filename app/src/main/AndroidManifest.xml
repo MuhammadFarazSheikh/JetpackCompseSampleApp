@@ -23,6 +23,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBbG2ci755yZZxqGn8KuhrF6GZ4eISeFVY" />
 
+        <activity android:name=".activities.OtherWeatherOptionsActivity"/>
+
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">

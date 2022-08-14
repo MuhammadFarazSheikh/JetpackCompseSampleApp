@@ -1,16 +1,12 @@
-package com.lovetocode.diseasesymptoms.fragments
+package com.lovetocode.diseasesymptoms.activities
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -24,33 +20,22 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import kotlin.reflect.KProperty
 
 @AndroidEntryPoint
-class FragmentOtherOptions : Fragment() {
-
-    lateinit var weatherData:MutableState<Any>
-    private lateinit var baseBO: BaseBO
+class OtherWeatherOptionsActivity : AppCompatActivity() {
+    lateinit var weatherData: MutableState<Any>
+    lateinit var fiveDaysWeatherData: MutableState<Any>
     val viewModel: CommonViewModel by viewModels()
-    private lateinit var composeView: ComposeView
     private lateinit var compositeDisposable: CompositeDisposable
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        composeView=ComposeView(requireContext())
-        return composeView.apply {
-            setContent {
-                mainContent()
-            }
-        }
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         initInstances()
+        setContent {
+            mainContent()
+        }
+        getFiveDaysData()
     }
 
     @OptIn(ExperimentalPagerApi::class)
@@ -58,7 +43,7 @@ class FragmentOtherOptions : Fragment() {
     @Composable
     fun mainContent()
     {
-        weatherData = remember{ mutableStateOf(Any())}
+        weatherData = remember{ mutableStateOf(Any()) }
         var pagerState = rememberPagerState(initialPage = 0)
         val scope = rememberCoroutineScope()
         Scaffold(topBar = {
@@ -68,15 +53,32 @@ class FragmentOtherOptions : Fragment() {
                 }
             } )
         }) {
-            HorizontalPager(state = pagerState, count = TabPage.values().size) {index->
+            HorizontalPager(state = pagerState, count = TabPage.values().size) { index->
                 when(index)
                 {
                     0,1->{
-                       searchWeather(this@FragmentOtherOptions,weatherData)
+                       searchWeather(this@OtherWeatherOptionsActivity,weatherData)
                     }
                 }
             }
         }
+    }
+
+    fun getFiveDaysData()
+    {
+        compositeDisposable.add(
+            viewModel.getFiveDaysData("Pakistan")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { onSuccess, onError ->
+                    if (onSuccess != null) {
+                        fiveDaysWeatherData.value = onSuccess
+                    }
+                    if (onError != null) {
+                        weatherData.value = Any()
+                    }
+                }
+        )
     }
 
     fun getWeatherDetails(weatherQuery:String)
@@ -87,8 +89,7 @@ class FragmentOtherOptions : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { onSuccess, onError ->
                     if (onSuccess != null) {
-                        baseBO = onSuccess
-                        weatherData.value = baseBO
+                        weatherData.value = onSuccess
                     }
                     if (onError != null) {
                         weatherData.value = Any()

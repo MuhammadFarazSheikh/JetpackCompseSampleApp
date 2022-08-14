@@ -1,5 +1,6 @@
 package com.lovetocode.diseasesymptoms.composeclasses
 
+import android.content.Intent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.fragment.findNavController
 import com.lovetocode.diseasesymptoms.R
+import com.lovetocode.diseasesymptoms.activities.OtherWeatherOptionsActivity
 import com.lovetocode.diseasesymptoms.models.BaseBO
 import com.lovetocode.diseasesymptoms.others.Constants
 import com.lovetocode.diseasesymptoms.utils.DateTimeUtils
@@ -34,6 +37,7 @@ import com.skydoves.landscapist.glide.GlideImage
 @Composable
 fun weatherData(baseBO:BaseBO)
 {
+    val context = LocalContext.current
     ConstraintLayout(
         modifier = Modifier
             .background(color = colorResource(R.color.light_slate_grey_color))
@@ -206,6 +210,7 @@ fun weatherData(baseBO:BaseBO)
         }
 
         TextButton(onClick = {
+                             context.startActivity(Intent(context,OtherWeatherOptionsActivity::class.java))
         }, modifier = Modifier
             .constrainAs(button)
             {

@@ -8,4 +8,7 @@ interface ApiInterface
 {
     @GET
     fun getData(@Url url:String):Single<BaseBO>
+
+    @GET
+    fun getFiveDaysData(@Url url:String):Single<ArrayList<BaseBO>>
 }

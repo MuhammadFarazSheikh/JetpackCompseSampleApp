@@ -13,7 +13,7 @@ class Constants
         const val LOCATION_RESULT_CODE = 102
         const val LOCATION_MANAGER = "LocationManager"
         const val TIME_FORMAT_OLD = "HH:mm:ss"
-        const val DATE_FORMAT_OLD = "yyyy-MM-dd"
+        const val DATE_FORMAT_OLD = "yyyy-MM-dd HH:mm:ss"
         const val PACKAGE_NAME = "com.ofsol.weatheralerts"
         const val YOUTUBE_DATA_API_KEY = "AIzaSyCyluzK65PdShBk_Up9txEwTIt7It_-gUU"
         const val SHA_1 = "D8:C8:FD:5C:71:50:BF:A5:2F:8B:12:C0:A6:59:05:E8:DF:AB:88:08"

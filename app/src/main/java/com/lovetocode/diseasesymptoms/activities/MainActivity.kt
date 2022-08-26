@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -31,24 +32,20 @@ import com.lovetocode.diseasesymptoms.models.BaseBO
 import com.lovetocode.diseasesymptoms.models.BottomNavItem
 import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
 import com.lovetocode.diseasesymptoms.viewmodels.RoomDBViewModel
+import com.montymobile.callsignature.networking.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var baseBO: BaseBO
     val viewModel: CommonViewModel by viewModels()
-    private lateinit var compositeDisposable: CompositeDisposable
     val roomDBViewModel: RoomDBViewModel by viewModels()
     lateinit var navController:NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initInstances()
         getWeatherData()
 
         setContent {
@@ -114,19 +111,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun getWeatherData()
     {
-        compositeDisposable.add(
-            viewModel.getData("Pakistan")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { onSuccess, onError ->
-                    if (onSuccess != null) {
-                        baseBO = onSuccess
-                    }
-                    if (onError != null) {
-
-                    }
+        viewModel.getData("Pakistan").observe(this, Observer {
+            when(it)
+            {
+                is Resource.Success->
+                {
+                    baseBO = it.value
                 }
-        )
+                is Resource.Failure->
+                {
+
+                }
+                is Resource.Loading->
+                {
+
+                }
+            }
+        })
     }
 
     @Preview
@@ -144,18 +145,5 @@ class MainActivity : AppCompatActivity() {
             }) {
             content()
         }
-    }
-
-    private fun initInstances() {
-        compositeDisposable = CompositeDisposable()
-    }
-
-    override fun onDestroy() {
-
-        if (::compositeDisposable.isInitialized) {
-            compositeDisposable.dispose()
-        }
-
-        super.onDestroy()
     }
 }

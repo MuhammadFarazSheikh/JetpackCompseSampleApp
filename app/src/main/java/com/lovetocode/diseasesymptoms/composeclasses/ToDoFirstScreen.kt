@@ -34,9 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavHostController
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.lovetocode.diseasesymptoms.R
 import com.lovetocode.diseasesymptoms.activities.ToDoNoteDetailsActivity
 import com.lovetocode.diseasesymptoms.models.ToDoNotesDTO
@@ -101,7 +98,7 @@ fun userToDOAdd(roomDBViewModel: RoomDBViewModel)
                 .padding(10.dp)
                 .constrainAs(phoneNumberFeild) {
                     top.linkTo(todoListLable.bottom, 20.dp)
-                }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
         BasicTextField(
@@ -179,24 +176,4 @@ fun verifyData(contact: String,noteData: String,context: Context):Boolean
     }
 
     return check
-}
-fun storeNoteData(contact:String,noteData:String,context: Context,roomDBViewModel: RoomDBViewModel)
-{
-    /*Firebase
-        .firestore
-        .collection(KeyUtils.TODO_NOTES)
-        .document(contact)
-        .set(mapOf<String,String>("userNote" to noteData))
-        .addOnSuccessListener {
-            Toast.makeText(context, context.getString(R.string.note_added),Toast.LENGTH_SHORT).show()
-        }
-        .addOnFailureListener {
-            Toast.makeText(context, "Note not added",Toast.LENGTH_SHORT).show()
-        }
-        .addOnCanceledListener {
-            Toast.makeText(context, "Cancelled",Toast.LENGTH_SHORT).show()
-        }
-        .addOnCompleteListener {
-            Toast.makeText(context, "Note add completed",Toast.LENGTH_SHORT).show()
-        }*/
 }

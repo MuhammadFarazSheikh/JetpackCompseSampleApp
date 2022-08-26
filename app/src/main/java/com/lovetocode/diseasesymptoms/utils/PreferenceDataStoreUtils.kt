@@ -6,7 +6,6 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.google.android.gms.maps.model.LatLng
 import com.montymobile.callsignature.utils.KeyUtils.Companion.DATA_STORE_NAME
 import com.montymobile.callsignature.utils.KeyUtils.Companion.LATITUDE
 import com.montymobile.callsignature.utils.KeyUtils.Companion.LONGITUDE

@@ -2,6 +2,7 @@ package com.lovetocode.diseasesymptoms.hilt
 
 import android.content.Context
 import androidx.room.Room
+import com.lovetocode.diseasesymptoms.others.App.Companion.context
 import com.lovetocode.diseasesymptoms.room.RoomDB
 import com.montymobile.callsignature.networking.buildApiServiceForWeatherUpdates
 import dagger.Module
@@ -13,9 +14,13 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RetrofitInstanceModule
+object HiltInstanceModules
 {
     @Singleton
     @Provides
     fun getRetrofitInstanceWeatherUpdates()= buildApiServiceForWeatherUpdates()
+
+    @Singleton
+    @Provides
+    fun getRoomDBInstance()= Room.databaseBuilder(context,RoomDB::class.java,"DB").build()
 }

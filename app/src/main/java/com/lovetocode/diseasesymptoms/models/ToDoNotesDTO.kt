@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity
 class ToDoNotesDTO(
     @PrimaryKey(autoGenerate = true) val id:Int,
-    val phoneNumber:String,
+    val title:String,
     val noteText:String
 )

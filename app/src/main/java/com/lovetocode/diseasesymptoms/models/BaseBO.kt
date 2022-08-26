@@ -11,5 +11,5 @@ data class BaseBO(
     val clouds: CloudsBO,
     val wind: WindBO,
     val dt_txt: String,
-    val arrayList: ArrayList<BaseBO>
+    var arrayList: ArrayList<BaseBO>
 )

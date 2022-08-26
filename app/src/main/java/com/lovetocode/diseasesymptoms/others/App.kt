@@ -12,5 +12,11 @@ class App: Application()
         super.attachBaseContext(base)
 
         MultiDex.install(this)
+        context = this
+    }
+
+    companion object
+    {
+        lateinit var context: Context
     }
 }

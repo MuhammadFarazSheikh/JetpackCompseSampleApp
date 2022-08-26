@@ -12,8 +12,12 @@ open class CommonViewModel @Inject constructor(
     var commonRepositry: CommonRepositry
     ): ViewModel() {
 
-    fun getData(name:String)= commonRepositry.getData(name)
-    fun getFiveDaysData(name:String)= commonRepositry.getFiveDaysData(name)
+    fun getData(name:String)= liveData{
+        emit(commonRepositry.getData(name))
+    }
+    fun getFiveDaysData(name:String)= liveData{
+        emit(commonRepositry.getFiveDaysData(name))
+    }
 
     open fun data()=commonRepositry.data()
     open fun dataState()=commonRepositry.dataState()

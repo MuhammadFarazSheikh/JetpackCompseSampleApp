@@ -7,3 +7,5 @@
 5) It have Jetpack Compose Material design components to build UI.
 6) This project is implemented with more than 90 percent kotlin.
 7) Test cases are in progress to be implemented.
+
+# I have tried to make things simple and clean code so to make it understable.

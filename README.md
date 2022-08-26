@@ -1,7 +1,9 @@
-# Todo Notes And Weather updates.
-This app is developed as a demo for those learning jetpack compose.
-This app has general test cases and test cases for api calls with coroutines.
-This app have implementation of RxJava for api call.
-This app is currently in further development to implement more things for learning.
-This app includes CI/CD which is in progress.
-This app has implmentation of firebase for app distribution to testers. YML file have all steps written for that.
+# Jetpack Compose Sample App.
+# This app is developed as a demo for those learning jetpack compose.
+1) It contains different jetpack libraries.
+2) It have coroutines implemented.
+3) It have MVVM architecture.
+4) It have retrofit for Api calls.
+5) It have Jetpack Compose Material design components to build UI.
+6) This project is implemented with more than 90 percent kotlin.
+7) Test cases are in progress to be implemented.

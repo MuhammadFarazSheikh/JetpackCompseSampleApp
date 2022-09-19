@@ -11,10 +11,7 @@ import androidx.lifecycle.Observer
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
-import com.lovetocode.diseasesymptoms.composeclasses.TabHome
-import com.lovetocode.diseasesymptoms.composeclasses.TabPage
-import com.lovetocode.diseasesymptoms.composeclasses.searchWeather
-import com.lovetocode.diseasesymptoms.composeclasses.showFiveDaysWeather
+import com.lovetocode.diseasesymptoms.composeclasses.*
 import com.lovetocode.diseasesymptoms.models.BaseBO
 import com.lovetocode.diseasesymptoms.models.WeatherMainBO
 import com.lovetocode.diseasesymptoms.viewmodels.CommonViewModel
@@ -59,6 +56,9 @@ class OtherWeatherOptionsActivity : AppCompatActivity() {
                     }
                     1 -> {
                         searchWeather(this@OtherWeatherOptionsActivity, weatherData)
+                    }
+                    2-> {
+                        showMap()
                     }
                 }
             }

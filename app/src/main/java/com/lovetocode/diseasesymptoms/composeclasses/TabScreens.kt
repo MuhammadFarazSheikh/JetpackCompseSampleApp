@@ -15,7 +15,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 enum class TabPage()
 {
     FiveDays,
-    SearchWeather
+    Search,
+    Maps
 }
 
 @Composable
